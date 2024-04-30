@@ -14,7 +14,7 @@ public class Main {
 
 
        System.out.println(g);
-
+       new DotWindow();
 
 
         for (int i = 1; i <= 5; i++) {
