@@ -7,7 +7,6 @@ public class DotWindow extends JFrame {
     private int dotY = 100;
     private final int DOT_SIZE = 20;
 
-
     public DotWindow() {
         setTitle("Moving Dot");
         setSize(800, 600);
@@ -40,11 +39,13 @@ public class DotWindow extends JFrame {
    //     g.drawOval(Xcords, Ycords, 10, 5);
    // }
 
+
     private void moveDot(KeyEvent e) {
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_UP:
                 dotY -= 10;
+
                 break;
             case KeyEvent.VK_DOWN:
                 dotY += 10;
@@ -65,17 +66,22 @@ public class DotWindow extends JFrame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(Color.BLACK);
-        g.fillOval(dotX, dotY, DOT_SIZE, DOT_SIZE);
+        for(int i = 0; i < Main.dots.length; i++){
+            System.out.println(i);
+            g.setColor(Color.BLUE);
+            //g.drawOval(Main.dots[i].xcord(), Main.dots[i].ycord(), DOT_SIZE, DOT_SIZE);
+            g.fillOval(Main.dots[i].xcord(), Main.dots[i].ycord(), DOT_SIZE, DOT_SIZE);
+           // g.drawRect(Main.dots[i].xcord(), Main.dots[i].ycord(), 15, 15);
+        }
+
+
+
+//        g.setColor(Color.BLACK);
+//        g.fillOval(Main.dots[1].xcord(), Main.dots[1].ycord(), DOT_SIZE, DOT_SIZE);
     }
 
-    public void newPaint(int Xcords, int Ycords, Graphics g){
-        super.paint(g);
-        g.setColor(Color.BLACK);
-        g.drawOval(Xcords, Ycords, 10, 5);
-    }
 
-    public static void main(String[] args) {
+    public static void main() {
         SwingUtilities.invokeLater(() -> {
             DotWindow window = new DotWindow();
             window.setVisible(true);
