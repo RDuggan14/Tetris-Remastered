@@ -1,10 +1,16 @@
 public class Block {
     private int xcord;
     private int ycord;
+    private boolean Occupied;
     //Constructor to create the block
     public Block(int xcord, int ycord){
+        this.Occupied = true;
         this.xcord = xcord;
         this.ycord = ycord;
+    }
+
+    public Block(){
+        this.Occupied = false;
     }
 
     public int xcord(){
@@ -15,4 +21,12 @@ public class Block {
     }
 
 
+    /* @return */
+    public void xchange(int xval){
+        this.xcord = xval;
+    }
+
+    public void ychange(int yval){
+        this.ycord = yval;
+    }
 }

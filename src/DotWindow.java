@@ -59,7 +59,6 @@ public class DotWindow extends JFrame {
                 break;
         }
         repaint();
-        System.out.println(Main.getWindow());
     }
 
 
@@ -70,8 +69,9 @@ public class DotWindow extends JFrame {
             System.out.println(i);
             g.setColor(Color.BLUE);
             //g.drawOval(Main.dots[i].xcord(), Main.dots[i].ycord(), DOT_SIZE, DOT_SIZE);
-            g.fillOval(Main.dots[i].xcord(), Main.dots[i].ycord(), DOT_SIZE, DOT_SIZE);
+            //g.fillOval(Main.dots[i].xcord(), Main.dots[i].ycord(), DOT_SIZE, DOT_SIZE);
            // g.drawRect(Main.dots[i].xcord(), Main.dots[i].ycord(), 15, 15);
+            g.fillRect(Main.dots[i].xcord(), Main.dots[i].ycord(), 10, 10);
         }
 
 

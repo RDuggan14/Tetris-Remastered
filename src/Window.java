@@ -37,7 +37,6 @@ public class Window extends JFrame {
                 break;
             case KeyEvent.VK_DOWN:
                // dotY += 10;
-
                 break;
             case KeyEvent.VK_LEFT:
                // dotX -= 10;
@@ -45,10 +44,15 @@ public class Window extends JFrame {
             case KeyEvent.VK_RIGHT:
               //  dotX += 10;
                 break;
+            case KeyEvent.VK_ESCAPE:
+                Main.Pause();
+                break;
         }
         repaint();
-        System.out.println(Main.getWindow());
     }
+
+
+
 
 
     @Override
@@ -63,7 +67,12 @@ public class Window extends JFrame {
 //        }
     }
 
-
+    public static void main() {
+        SwingUtilities.invokeLater(() -> {
+            Window window = new Window();
+            window.setVisible(true);
+        });
+    }
 
 
 
