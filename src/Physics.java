@@ -20,8 +20,9 @@ public class Physics {
     }
 
 
-    public void NewBlocks(){
-        int choice = RandomGenerator;
+    public static void NewBlocks(){
+        Random random = new Random();
+        int rand = random.nextInt(7);
 
 
     }
