@@ -1,11 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
 
 public class Window extends JFrame {
 //    private int dotX = 100;
 //    private int dotY = 100;
+
+    public Graphics gt;
 
     public Window() {
         setTitle("Tetris Remastered");
@@ -26,23 +29,21 @@ public class Window extends JFrame {
     }
 
 
-
-
     private void moveDot(KeyEvent e) {
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_UP:
-               // dotY -= 10;
+                // dotY -= 10;
 
                 break;
             case KeyEvent.VK_DOWN:
-               // dotY += 10;
+                // dotY += 10;
                 break;
             case KeyEvent.VK_LEFT:
-               // dotX -= 10;
+                // dotX -= 10;
                 break;
             case KeyEvent.VK_RIGHT:
-              //  dotX += 10;
+                //  dotX += 10;
                 break;
             case KeyEvent.VK_ESCAPE:
                 Main.Pause();
@@ -52,7 +53,10 @@ public class Window extends JFrame {
     }
 
 
-
+    public void Updater() {
+        System.out.println("update");
+        repaint();
+    }
 
 
     @Override
@@ -60,21 +64,44 @@ public class Window extends JFrame {
         //Super.Paint is needed to run the Paint function // idk why just Java required
         super.paint(g);
 
-//        for(int i = 0; i < Main.dots.length; i++){
-//            System.out.println(i);
-//            g.setColor(Color.BLUE);
-//            g.fillOval(Main.dots[i].xcord(), Main.dots[i].ycord(), DOT_SIZE, DOT_SIZE);
-//        }
+        for (int i = 0; i < Main.LiveBlocks.length; i++) {
+            g.setColor(Color.BLUE);
+            g.fillRect(Main.LiveBlocks[i].xcord(), Main.LiveBlocks[i].ycord(), 5, 5);
+        }
     }
 
-    public static void main() {
+    public void main(Window window) {
         SwingUtilities.invokeLater(() -> {
-            Window window = new Window();
             window.setVisible(true);
+            window.getGraphics();
+            try {
+                GameStart();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
+    public void GameStart() throws InterruptedException {
+        gt = getGraphics();
+        while (!Main.pause) {
+
+            if (!Main.liveFall) {
+                System.out.println("test");
+                Physics.NewBlocks();
+                System.out.printf(Arrays.toString(Main.LiveBlocks));
+                Main.liveFall = true;
+            }
 
 
+            Main.tick++;
+            Thread.sleep(1000);
+            System.out.println(Main.tick);
+            System.out.println(Main.LiveBlocks);
+            update(gt);
+            Physics.MoveDown(Main.LiveBlocks);
+        }
 
+
+    }
 }
