@@ -4,19 +4,24 @@ import java.util.random.RandomGenerator;
 
 public class Physics {
 
-    private int height = 15;
-    private int width = 10;
-    private Block[][] Yarray = {};
-    private Block[] Xarray = {};
+    public static Grid[] GridLines = {new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),};
+    public static int[] Xpixels = {20,40,60,80,100,120,140,160,180,200};
+    public static int[] Ypixels = {0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360,380,400};
+    private static int height = 20;
+    private static int width = 10;
+    private static Block[] Xarray = {new Block(),new Block(),new Block(),new Block(),new Block(),new Block(),new Block(),new Block(),new Block(),new Block(),};
+    private static Block[][] Yarray = {Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray,Xarray};
 
-    public void NewField(){
 
-        for(int i = 0; i < width;i++){
-            Xarray[i] = new Block();
+
+    public static void NewField(){
+
+        for(int i = 0; i < 10;i++){
+            System.out.println((Xpixels[i]));
+            GridLines[i] = new Grid(Xpixels[i], Ypixels[1], Ypixels[20]);
         }
-         for(int i = 0; i < height;i++){
-             Yarray[i] = Xarray;
-         }
+        System.out.println(Arrays.toString(GridLines));
+        System.out.println(Arrays.toString(Yarray[1]));
 
     }
 
@@ -34,12 +39,12 @@ public class Physics {
 
     public static void MoveDown(Block[] LiveBlocks){
         for(int i = 0; i < LiveBlocks.length; i++){
-            LiveBlocks[i].ychange((LiveBlocks[i].ycord()+10));
+            LiveBlocks[i].ychange((LiveBlocks[i].ycord()+1));
         }
     }
 
     public static Block[] Fourlong(){
-        Block[] Blocks = {new Block(100, 100), new Block(110,100),new Block(120,100),new Block(130,100)};
+        Block[] Blocks = {new Block(5, 1), new Block(6,1),new Block(7,1),new Block(8,1)};
         return(Blocks);
     }
 

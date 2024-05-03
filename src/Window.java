@@ -49,13 +49,23 @@ public class Window extends JFrame {
                 Main.Pause();
                 break;
         }
-        repaint();
+        paint(gt);
     }
 
 
     public void Updater() {
         System.out.println("update");
-        repaint();
+        super.paint(gt);
+        paint(gt);
+    }
+
+    public void GridMaker(){
+        Physics.NewField();
+        for(int i = 0; i < Physics.GridLines.length; i++){
+            Grid current = Physics.GridLines[i];
+            gt.drawLine(current.xcord(),current.ycord(), current.xcord(), current.BYCords);
+
+        }
     }
 
 
@@ -66,7 +76,7 @@ public class Window extends JFrame {
 
         for (int i = 0; i < Main.LiveBlocks.length; i++) {
             g.setColor(Color.BLUE);
-            g.fillRect(Main.LiveBlocks[i].xcord(), Main.LiveBlocks[i].ycord(), 5, 5);
+            g.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())], Physics.Ypixels[Main.LiveBlocks[i].ycord()], 20, 20);
         }
     }
 
@@ -84,6 +94,7 @@ public class Window extends JFrame {
 
     public void GameStart() throws InterruptedException {
         gt = getGraphics();
+        GridMaker();
         while (!Main.pause) {
 
             if (!Main.liveFall) {
@@ -98,7 +109,7 @@ public class Window extends JFrame {
             Thread.sleep(1000);
             System.out.println(Main.tick);
             System.out.println(Main.LiveBlocks);
-            update(gt);
+            Updater();
             Physics.MoveDown(Main.LiveBlocks);
         }
 
