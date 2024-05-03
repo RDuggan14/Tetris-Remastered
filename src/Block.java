@@ -1,7 +1,7 @@
 public class Block {
     private int xcord;
     private int ycord;
-    private boolean Occupied;
+    public boolean Occupied;
     //Constructor to create the block
     public Block(int xcord, int ycord){
         this.Occupied = true;

@@ -78,6 +78,11 @@ public class Window extends JFrame {
             g.setColor(Color.BLUE);
             g.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())], Physics.Ypixels[Main.LiveBlocks[i].ycord()], 20, 20);
         }
+        for (int i = 0; i < Physics.GridLines.length;i++){
+            g.setColor(Color.GRAY);
+            Grid current = Physics.GridLines[i];
+            g.drawLine(current.xcord, current.ycord, current.xcord, current.BYCords);
+        }
     }
 
     public void main(Window window) {
