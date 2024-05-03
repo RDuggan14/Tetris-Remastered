@@ -9,7 +9,6 @@ public class Main {
 
     public static Block[] LiveBlocks = {};
     public static boolean liveFall = false;
-    public static Block[] dots = {new Block(120, 150), new Block(310, 240)};
     public static boolean pause = false;
     public static int tick = 0;
 

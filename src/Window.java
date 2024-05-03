@@ -30,6 +30,7 @@ public class Window extends JFrame {
 
 
     private void moveDot(KeyEvent e) {
+        System.out.println("Pressed");
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_UP:
@@ -82,8 +83,14 @@ public class Window extends JFrame {
         //Super.Paint is needed to run the Paint function // idk why just Java required
         super.paint(g);
 
+        for(int i = 0; i < Physics.Yarray.length; i++){
+
+        }
+
         for (int i = 0; i < Main.LiveBlocks.length; i++) {
-            g.setColor(Color.BLUE);
+            System.out.println(Main.LiveBlocks[i].Color);
+            String color = Main.LiveBlocks[i].Color;
+            g.setColor(Color.getColor(color));
             g.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())], Physics.Ypixels[Main.LiveBlocks[i].ycord()], 20, 20);
         }
         for (int i = 0; i < Physics.GridLines.length;i++){
@@ -113,6 +120,7 @@ public class Window extends JFrame {
     public void GameStart() throws InterruptedException {
         gt = getGraphics();
         GridMaker();
+        key
         while (!Main.pause) {
 
             if (!Main.liveFall) {
@@ -128,10 +136,12 @@ public class Window extends JFrame {
             System.out.println(Main.tick);
             System.out.println(Main.LiveBlocks);
             Updater();
+            Physics.GridChecker();
             if(Physics.CheckDown(Main.LiveBlocks)){
                 Physics.MoveDown(Main.LiveBlocks);
             }
             else{
+                Physics.SetBlocks();
                 Main.liveFall = false;
             }
 

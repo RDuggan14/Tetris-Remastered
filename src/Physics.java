@@ -9,12 +9,20 @@ public class Physics {
     public static int[] Xpixels = {200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420};
     public static int[] Ypixels = {0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400};
     private static int height = 20;
-    private static int width = 10;
-    private static Block[] Xarray = {new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(),};
-    private static Block[][] Yarray = {Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray, Xarray};
+    private static int width = 11;
+    public static Block[] Xarray = {new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block()};
+    public static Block[][] Yarray = new Block[20][];
 
 
     public static void NewField() {
+
+        for(int y = 0; y < 20;y++) {
+            Block[] Xarray = new Block[10];
+            for (int i = 0; i < 10; i++) {
+                Xarray[i] = new Block();
+            }
+            Yarray[y] = Xarray;
+        }
 
         for (int i = 0; i < Xpixels.length; i++) {
             System.out.println((Xpixels[i]));
@@ -23,8 +31,6 @@ public class Physics {
         for (int i = 0; i < Ypixels.length;i++){
             yGridlines[i] = new Grid(Xpixels[0], Xpixels[11], Ypixels[i], Ypixels[i]);
         }
-        System.out.println(Arrays.toString(GridLines));
-        System.out.println(Arrays.toString(Yarray[1]));
 
     }
 
@@ -44,14 +50,13 @@ public class Physics {
     }
 
     public static Block[] Fourlong() {
-        Block[] Blocks = {new Block(5, 1), new Block(6, 1), new Block(7, 1), new Block(8, 1)};
+        Block[] Blocks = {new Block(5, 1, "BLUE"), new Block(6, 1, "BLUE"), new Block(7, 1, "BLUE"), new Block(8, 1,"BLUE")};
         return (Blocks);
     }
 
     public static Block GetBlock(int x, int y) {
-        Block[] currenty = Yarray[y];
-        Block currentx = Xarray[x];
-        return (currentx);
+        Block current = Yarray[y][x];
+        return (current);
     }
 
 
@@ -92,6 +97,23 @@ public class Physics {
         }
         return(true);
     }
+
+    public static void SetBlocks(){
+        for(int i = 0; i < Main.LiveBlocks.length; i++){
+           Block Block = Yarray[Main.LiveBlocks[i].ycord()][Main.LiveBlocks[i].xcord()];
+            Block.UpdateBlock(true, Main.LiveBlocks[i].Color);
+        }
+    }
+
+    public static void GridChecker(){
+        for(int i = 0; i < Yarray.length; i++) {
+            for (int x = 0; x < Xarray.length; x++) {
+                System.out.print(Yarray[i][x].Occupied + " ( " + Yarray[i][x] + " ),");
+            }
+            System.out.println("New");
+        }
+    }
+
 
 
 }
