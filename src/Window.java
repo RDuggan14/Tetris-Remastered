@@ -34,7 +34,6 @@ public class Window extends JFrame {
         switch (keyCode) {
             case KeyEvent.VK_UP:
                 // dotY -= 10;
-
                 break;
             case KeyEvent.VK_DOWN:
                 // dotY += 10;
@@ -44,6 +43,7 @@ public class Window extends JFrame {
                 break;
             case KeyEvent.VK_RIGHT:
                 //  dotX += 10;
+                MoveR();
                 break;
             case KeyEvent.VK_ESCAPE:
                 Main.Pause();
@@ -63,11 +63,19 @@ public class Window extends JFrame {
         Physics.NewField();
         for(int i = 0; i < Physics.GridLines.length; i++){
             Grid current = Physics.GridLines[i];
-            gt.drawLine(current.xcord(),current.ycord(), current.xcord(), current.BYCords);
+            gt.drawLine(current.xcord(),current.ycord(), current.xcord(), current.yycord);
 
         }
     }
 
+    public void MoveR(){
+        System.out.println("moveR");
+        if(Physics.CheckRight(Main.LiveBlocks)){
+            System.out.println("CheckedR");
+
+            Physics.MoveRight(Main.LiveBlocks);
+        }
+    }
 
     @Override
     public void paint(Graphics g) {
@@ -81,7 +89,12 @@ public class Window extends JFrame {
         for (int i = 0; i < Physics.GridLines.length;i++){
             g.setColor(Color.GRAY);
             Grid current = Physics.GridLines[i];
-            g.drawLine(current.xcord, current.ycord, current.xcord, current.BYCords);
+            g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
+        }
+        for (int i = 0; i < Physics.yGridlines.length;i++){
+            g.setColor(Color.GRAY);
+            Grid current = Physics.yGridlines[i];
+            g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
         }
     }
 
@@ -115,7 +128,13 @@ public class Window extends JFrame {
             System.out.println(Main.tick);
             System.out.println(Main.LiveBlocks);
             Updater();
-            Physics.MoveDown(Main.LiveBlocks);
+            if(Physics.CheckDown(Main.LiveBlocks)){
+                Physics.MoveDown(Main.LiveBlocks);
+            }
+            else{
+                Main.liveFall = false;
+            }
+
         }
 
 
