@@ -2,13 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Window extends JFrame {
 //    private int dotX = 100;
 //    private int dotY = 100;
 
     public Graphics gt;
+    public static Window window;
 
     public Window() {
         setTitle("Tetris Remastered");
@@ -17,17 +19,20 @@ public class Window extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                moveDot(e);
-            }
-        });
 
         setFocusable(true);
         requestFocusInWindow();
     }
 
+
+    public void key(){
+        window.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                moveDot(e);
+            }
+        });
+    }
 
     private void moveDot(KeyEvent e) {
         System.out.println("Pressed");
@@ -60,18 +65,18 @@ public class Window extends JFrame {
         paint(gt);
     }
 
-    public void GridMaker(){
+    public void GridMaker() {
         Physics.NewField();
-        for(int i = 0; i < Physics.GridLines.length; i++){
+        for (int i = 0; i < Physics.GridLines.length; i++) {
             Grid current = Physics.GridLines[i];
-            gt.drawLine(current.xcord(),current.ycord(), current.xcord(), current.yycord);
+            gt.drawLine(current.xcord(), current.ycord(), current.xcord(), current.yycord);
 
         }
     }
 
-    public void MoveR(){
+    public void MoveR() {
         System.out.println("moveR");
-        if(Physics.CheckRight(Main.LiveBlocks)){
+        if (Physics.CheckRight(Main.LiveBlocks)) {
             System.out.println("CheckedR");
 
             Physics.MoveRight(Main.LiveBlocks);
@@ -83,7 +88,7 @@ public class Window extends JFrame {
         //Super.Paint is needed to run the Paint function // idk why just Java required
         super.paint(g);
 
-        for(int i = 0; i < Physics.Yarray.length; i++){
+        for (int i = 0; i < Physics.Yarray.length; i++) {
 
         }
 
@@ -93,12 +98,12 @@ public class Window extends JFrame {
             g.setColor(Color.getColor(color));
             g.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())], Physics.Ypixels[Main.LiveBlocks[i].ycord()], 20, 20);
         }
-        for (int i = 0; i < Physics.GridLines.length;i++){
+        for (int i = 0; i < Physics.GridLines.length; i++) {
             g.setColor(Color.GRAY);
             Grid current = Physics.GridLines[i];
             g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
         }
-        for (int i = 0; i < Physics.yGridlines.length;i++){
+        for (int i = 0; i < Physics.yGridlines.length; i++) {
             g.setColor(Color.GRAY);
             Grid current = Physics.yGridlines[i];
             g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
@@ -109,6 +114,7 @@ public class Window extends JFrame {
         SwingUtilities.invokeLater(() -> {
             window.setVisible(true);
             window.getGraphics();
+            this.window = window;
             try {
                 GameStart();
             } catch (InterruptedException e) {
@@ -120,7 +126,9 @@ public class Window extends JFrame {
     public void GameStart() throws InterruptedException {
         gt = getGraphics();
         GridMaker();
-        key
+
+
+
         while (!Main.pause) {
 
             if (!Main.liveFall) {
@@ -137,10 +145,9 @@ public class Window extends JFrame {
             System.out.println(Main.LiveBlocks);
             Updater();
             Physics.GridChecker();
-            if(Physics.CheckDown(Main.LiveBlocks)){
+            if (Physics.CheckDown(Main.LiveBlocks)) {
                 Physics.MoveDown(Main.LiveBlocks);
-            }
-            else{
+            } else {
                 Physics.SetBlocks();
                 Main.liveFall = false;
             }
@@ -149,4 +156,5 @@ public class Window extends JFrame {
 
 
     }
+
 }
