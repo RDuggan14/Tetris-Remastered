@@ -1,18 +1,25 @@
+import java.awt.*;
+
 public class Block {
     private int xcord;
     private int ycord;
     public boolean Occupied;
-    public String Color;
+    public Color Color;
     //Constructor to create the block
-    public Block(int xcord, int ycord, String Color){
+    public Block(int xcord, int ycord, Color Color){
         this.Occupied = true;
         this.xcord = xcord;
         this.ycord = ycord;
         this.Color = Color;
     }
 
+    public Color getColor(){
+        return(this.Color);
+    }
+
     public Block(){
         this.Occupied = false;
+        this.Color = Color.WHITE;
     }
 
     public int xcord(){
@@ -23,7 +30,7 @@ public class Block {
     }
 
 
-    public void UpdateBlock(boolean Occupied, String Color){
+    public void UpdateBlock(boolean Occupied, Color Color){
         this.Occupied = Occupied;
         this.Color = Color;
     }

@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.random.RandomGenerator;
@@ -48,7 +49,7 @@ public class Physics {
     }
 
     public static Block[] Fourlong() {
-        Block[] Blocks = {new Block(5, 1, "BLUE"), new Block(6, 1, "BLUE"), new Block(7, 1, "BLUE"), new Block(8, 1,"BLUE")};
+        Block[] Blocks = {new Block(5, 1, Color.BLUE), new Block(6, 1, Color.BLUE), new Block(7, 1, Color.BLUE), new Block(8, 1,Color.BLUE)};
         return (Blocks);
     }
 
@@ -106,7 +107,7 @@ public class Physics {
     public static void GridChecker(){
         for(int i = 0; i < Yarray.length; i++) {
             for (int x = 0; x < Xarray.length; x++) {
-                System.out.print(Yarray[i][x].Occupied + " ( " + Yarray[i][x] + " ),");
+                System.out.print(Yarray[i][x].Occupied + " ( " + Yarray[i][x] + " ) " + Yarray[i][x].Color + " ,");
             }
             System.out.println("New");
         }

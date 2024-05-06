@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Window extends JFrame {
+public class Window extends JFrame  {
 //    private int dotX = 100;
 //    private int dotY = 100;
 
@@ -88,14 +88,17 @@ public class Window extends JFrame {
         //Super.Paint is needed to run the Paint function // idk why just Java required
         super.paint(g);
 
-        for (int i = 0; i < Physics.Yarray.length; i++) {
-
+        for (int y = 0; y < Physics.Yarray.length; y++) {
+            for (int x = 0; x < Physics.Xarray.length; x++){
+                Color color = Physics.Yarray[y][x].Color;
+                g.setColor(color);
+                g.fillRect(Physics.Xpixels[x], Physics.Ypixels[y], 20, 20 );
+            }
         }
 
         for (int i = 0; i < Main.LiveBlocks.length; i++) {
             System.out.println(Main.LiveBlocks[i].Color);
-            String color = Main.LiveBlocks[i].Color;
-            g.setColor(Color.getColor(color));
+            g.setColor(Main.LiveBlocks[i].getColor());
             g.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())], Physics.Ypixels[Main.LiveBlocks[i].ycord()], 20, 20);
         }
         for (int i = 0; i < Physics.GridLines.length; i++) {
