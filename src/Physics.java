@@ -49,40 +49,146 @@ public class Physics {
             if(CurrentBlock == 1){
                 if(RotatePOS == 0) {
                     Block[] Pattern = {new Block(0,1), new Block(0,2), new Block(0,3), new Block(0,4)};
-                    rotationPattern(Pattern, Main.LiveBlocks);
-//                    NewCords[0] = new Block(Main.LiveBlocks[2].xcord(), Main.LiveBlocks[2].ycord() + 2, Main.LiveBlocks[2].getColor());
-//                    NewCords[1] = new Block(Main.LiveBlocks[2].xcord(), Main.LiveBlocks[2].ycord() + 1, Main.LiveBlocks[2].getColor());
-//                    NewCords[2] = new Block(Main.LiveBlocks[2].xcord(), Main.LiveBlocks[2].ycord(), Main.LiveBlocks[2].getColor());
-//                    NewCords[3] = new Block(Main.LiveBlocks[2].xcord(), Main.LiveBlocks[2].ycord() - 1, Main.LiveBlocks[2].getColor());
-//
-//                    if (CordChecker(NewCords)) {
-//                        RotatePOS++;
-//                        Main.LiveBlocks = NewCords;
-//                    }
-                                       RotatePOS++;
+                    rotationPattern(Pattern);
+                    RotatePOS++;
 
                 }
                 else if(RotatePOS == 1) {
                     Block[] Pattern = {new Block(0,0), new Block(1,0), new Block(2,0), new Block(3,0)};
-                    rotationPattern(Pattern, Main.LiveBlocks);
-//                    NewCords[0] = new Block(Main.LiveBlocks[2].xcord()-2, Main.LiveBlocks[2].ycord(), Main.LiveBlocks[2].getColor());
-//                    NewCords[1] = new Block(Main.LiveBlocks[2].xcord()-1, Main.LiveBlocks[2].ycord(), Main.LiveBlocks[2].getColor());
-//                    NewCords[2] = new Block(Main.LiveBlocks[2].xcord(), Main.LiveBlocks[2].ycord(), Main.LiveBlocks[2].getColor());
-//                    NewCords[3] = new Block(Main.LiveBlocks[2].xcord()+1, Main.LiveBlocks[2].ycord(), Main.LiveBlocks[2].getColor());
-//
-//                    if (CordChecker(NewCords)) {
-//                    RotatePOS = 0;
-//                        Main.LiveBlocks = NewCords;
-//                    }
+                    rotationPattern(Pattern);
                     RotatePOS = 0;
 
                 }
             }
+        if(CurrentBlock == 2){
+            if(RotatePOS == 0) {
+                Block[] Pattern = {new Block(0,1), new Block(0,-1), new Block(0,0), new Block(1,0)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 1) {
+                Block[] Pattern = {new Block(1,0), new Block(-1,0), new Block(0,0), new Block(0,1)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 2) {
+                Block[] Pattern = {new Block(0,1), new Block(0,-1), new Block(0,0), new Block(-1,0)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 3) {
+                Block[] Pattern = {new Block(1,0), new Block(-1,0), new Block(0,0), new Block(0,-1)};
+                rotationPattern(Pattern);
+                RotatePOS = 0;
+
+            }
+
+        }
+        if(CurrentBlock == 3){
+            if(RotatePOS == 0) {
+                Block[] Pattern = {new Block(0,0), new Block(1,1), new Block(1,0), new Block(0,-1)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 1) {
+                Block[] Pattern = {new Block(1,-1), new Block(0,-1), new Block(0,0), new Block(-1,0)};
+                rotationPattern(Pattern);
+                RotatePOS = 0;
+
+            }
+
+        }
+        if(CurrentBlock == 4){
+            if(RotatePOS == 0) {
+                Block[] Pattern = {new Block(0,0), new Block(-1,1), new Block(-1,0), new Block(0,-1)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 1) {
+                Block[] Pattern = {new Block(0,0), new Block(-1,0), new Block(0,1), new Block(1,1)};
+                rotationPattern(Pattern);
+                RotatePOS = 0;
+
+            }
+
+        }
+        if(CurrentBlock == 6){
+            if(RotatePOS == 0) {
+                Block[] Pattern = {new Block(0,0), new Block(0,1), new Block(0,-1), new Block(1,1)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 1) {
+                Block[] Pattern = {new Block(0,0), new Block(1,0), new Block(-1,0), new Block(-1,1)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 2) {
+                Block[] Pattern = {new Block(0,0), new Block(0,1), new Block(0,-1), new Block(-1,-1)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 3) {
+                Block[] Pattern = {new Block(0,0), new Block(1,0), new Block(-1,0), new Block(1,-1)};
+                rotationPattern(Pattern);
+                RotatePOS = 0;
+
+            }
+
+        }
+        if(CurrentBlock == 7){
+            if(RotatePOS == 0) {
+                Block[] Pattern = {new Block(0,0), new Block(0,1), new Block(0,-1), new Block(1,-1)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 1) {
+                Block[] Pattern = {new Block(0,0), new Block(-1,0), new Block(1,0), new Block(1,1)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 2) {
+                Block[] Pattern = {new Block(0,0), new Block(0,1), new Block(0,-1), new Block(-1,1)};
+                rotationPattern(Pattern);
+                RotatePOS++;
+
+            }
+            else if(RotatePOS == 3) {
+                Block[] Pattern = {new Block(0,0), new Block(-1,0), new Block(1,0), new Block(-1,-1)};
+                rotationPattern(Pattern);
+                RotatePOS = 0;
+
+            }
+
+        }
     }
+
+        public static int generateRandomNumber() {
+            Random random = new Random();
+            return random.nextInt(7); // generates a random integer between 0 (inclusive) and 8 (exclusive)
+        }
+
+
 
 
     public static boolean CordChecker(Block[] Blocks){
             for(var i = 0; i < Blocks.length; i++){
+                if (Blocks[i].ycord() < 0 || Blocks[i].ycord() > 19){
+                    return(false);
+                }
+                if (Blocks[i].xcord() < 0 || Blocks[i].xcord() > 9){
+                    return(false);
+                }
                 if(Yarray[Blocks[i].ycord()][Blocks[i].xcord()].Occupied){
                     return(false);
                 }
@@ -91,30 +197,76 @@ public class Physics {
     }
 
 
-    public static void rotationPattern(Block[] BlockPattern, Block[] LiveBlocks){
-            Block[] CheckerList = {new Block(),new Block(),new Block(),new Block(),};
-            for(var i = 0; i < Main.LiveBlocks.length; i++){
-                for(var x = 0; x < BlockPattern.length; x++){
+    public static void rotationPattern(Block[] BlockPattern){
+            for(var i = 0; i < 4; i++){
+                Block[] CheckerList = {new Block(),new Block(),new Block(),new Block(),};
+                for(var x = 0; x < 4; x++){
                     int xdift = BlockPattern[x].xcord();
                     int ydift = BlockPattern[x].ycord();
 
-                    CheckerList[x] = new Block(LiveBlocks[i].xcord()+xdift, LiveBlocks[i].ycord()+ydift, LiveBlocks[x].getColor());
+                    CheckerList[x] = new Block(Main.LiveBlocks[i].xcord()+xdift, Main.LiveBlocks[i].ycord()+ydift, Main.LiveBlocks[x].getColor());
+                    System.out.println("CORDS " + CheckerList[x].xcord() + " " + CheckerList[x].ycord());
                 }
+
                 if(CordChecker(CheckerList)){
                     Main.LiveBlocks = CheckerList;
-return;
+                    return;
                 }
             }
+        for(var i = 0; i < 4; i++){
+            Block[] CheckerList = {new Block(),new Block(),new Block(),new Block(),};
+            for(var x = 0; x < 4; x++){
+                int xdift = -BlockPattern[x].xcord();
+                int ydift = -BlockPattern[x].ycord();
+
+                CheckerList[x] = new Block(Main.LiveBlocks[i].xcord()+xdift, Main.LiveBlocks[i].ycord()+ydift, Main.LiveBlocks[x].getColor());
+                System.out.println("CORDS " + CheckerList[x].xcord() + " " + CheckerList[x].ycord());
+            }
+
+            if(CordChecker(CheckerList)){
+                Main.LiveBlocks = CheckerList;
+                return;
+            }
+        }
 
     }
 
     public static void NewBlocks() {
             RotatePOS = 0;
+
+        int randomNumber = generateRandomNumber();
+        if(randomNumber == 0){
+            Main.SetLiveBlocks(Fourlong());
+        }
+        if(randomNumber == 1){
+            Main.SetLiveBlocks(ZigRight());
+        }
+        if(randomNumber == 2){
+            Main.SetLiveBlocks(ZigLeft());
+        }
+        if(randomNumber == 3){
+            Main.SetLiveBlocks(TPeice());
+        }
+        if(randomNumber == 4){
+            Main.SetLiveBlocks(Square());
+        }
+        if(randomNumber == 5){
+            Main.SetLiveBlocks(LRight());
+        }
+        if(randomNumber == 6){
+            Main.SetLiveBlocks(LLeft());
+        }
+
+
+
         //Random random = new Random();
         //int rand = random.nextInt(7);
-        Main.SetLiveBlocks(Fourlong());
+        //Main.SetLiveBlocks(LRight());
 
     }
+
+
+
 
 
     public static void MoveDown(Block[] LiveBlocks) {
