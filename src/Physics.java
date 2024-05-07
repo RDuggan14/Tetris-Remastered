@@ -178,7 +178,46 @@ public class Physics {
             return random.nextInt(7); // generates a random integer between 0 (inclusive) and 8 (exclusive)
         }
 
+public static void LineClear(){
+            int[] ClearLines = {99,99,99,99};
+            int LineClears = 0;
+    System.out.println("LineCHecker");
 
+            for(int i = 0; i < Yarray.length;i++){
+                int LineOccu = 0;
+                Block[] CurrentYLine = Yarray[i];
+                System.out.println(Arrays.toString(CurrentYLine));
+                 for(int x = 0; x < CurrentYLine.length;x++){
+                     if(CurrentYLine[x].Occupied){
+                         LineOccu++;
+                     }
+
+                 }
+                System.out.println(LineOccu + " LINE");
+                 if(LineOccu == Xarray.length){
+                     System.out.println(LineOccu + " LINE");
+                     ClearLines[LineClears] = i;
+                     LineClears++;
+
+
+                 }
+            }
+            for(int i = 0; i < ClearLines.length; i++){
+                if(ClearLines[i] != 99){
+                    for(int y = 0; y < ClearLines[i];y++){
+                        int x = ClearLines[i] - y;
+                        System.out.println(x);
+                        if(x == 0){
+                            Yarray[x] = Xarray;
+                        }
+                        else{
+                            Yarray[x] = Yarray[(x - 1)];
+                        }
+                    }
+
+                }
+            }
+}
 
 
     public static boolean CordChecker(Block[] Blocks){

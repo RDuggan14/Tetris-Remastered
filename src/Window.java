@@ -13,6 +13,8 @@ public class Window extends JFrame implements KeyListener {
 
     public Graphics gt;
     public static Window window;
+    private int TickUpdate = 10;
+    private int lastCheck;
 
     public Window() {
         setTitle("Tetris Remastered");
@@ -28,7 +30,6 @@ public class Window extends JFrame implements KeyListener {
 
 
     }
-
 
 
     @Override
@@ -75,6 +76,10 @@ public class Window extends JFrame implements KeyListener {
 
     }
 
+
+    public void ChangeTick(int NewTick){
+        TickUpdate = NewTick;
+    }
 
     public void WhiteOut(Block[] Blocks){
         for(int i = 0; i < Blocks.length;i++){
@@ -199,15 +204,23 @@ public class Window extends JFrame implements KeyListener {
             Main.tick++;
             Thread.sleep(1000/60);
 
-            Physics.GridChecker();
+            //Physics.GridChecker();
             if(Main.tick % 10 == 0) {
                 if (Physics.CheckDown(Main.LiveBlocks)) {
                     Physics.MoveDown(Main.LiveBlocks);
                 } else {
-                    Physics.SetBlocks();
-                    Main.liveFall = false;
+                    if(lastCheck > 2){
+                        Physics.SetBlocks();
+                        Physics.LineClear();
+                        Main.liveFall = false;
+                        lastCheck = 0;
+                    }
+                    else{
+                        lastCheck++;
+                    }
+
                 }
-                System.out.println(getKeyListeners());
+
                 Updater();
             }
         }
