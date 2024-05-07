@@ -13,6 +13,11 @@ public class Block {
         this.Color = Color;
     }
 
+    public Block(int xcord, int ycord){
+        this.xcord = xcord;
+        this.ycord = ycord;
+    }
+
     public Color getColor(){
         return(this.Color);
     }

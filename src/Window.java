@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Time;
 import java.util.Arrays;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Optional;
 
-public class Window extends JFrame  {
+public class Window extends JFrame implements KeyListener {
 //    private int dotX = 100;
 //    private int dotY = 100;
 
@@ -21,43 +23,65 @@ public class Window extends JFrame  {
 
 
         setFocusable(true);
+        addKeyListener(this);
         requestFocusInWindow();
+
+
     }
 
 
-    public void key(){
-        window.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                moveDot(e);
-            }
-        });
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.println("test");
+        // Your keyTyped method implementation
     }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("test");
+        moveDot(e);
+        // Your keyPressed method implementation
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("test");
+
+        // Your keyReleased method implementation
+    }
+
 
     private void moveDot(KeyEvent e) {
         System.out.println("Pressed");
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_UP:
-                // dotY -= 10;
+                Physics.rotate();
                 break;
             case KeyEvent.VK_DOWN:
-                // dotY += 10;
                 break;
             case KeyEvent.VK_LEFT:
-                // dotX -= 10;
+                MoveL();
                 break;
             case KeyEvent.VK_RIGHT:
-                //  dotX += 10;
                 MoveR();
+
                 break;
             case KeyEvent.VK_ESCAPE:
                 Main.Pause();
                 break;
         }
-        paint(gt);
+
     }
 
+
+    public void WhiteOut(Block[] Blocks){
+        for(int i = 0; i < Blocks.length;i++){
+            gt.setColor(Color.WHITE);
+            gt.fillRect(Physics.Xpixels[(Blocks[i].xcord())]+1, Physics.Ypixels[Blocks[i].ycord()]+1, 19, 19);
+        }
+    }
 
     public void Updater() {
         System.out.println("update");
@@ -74,12 +98,40 @@ public class Window extends JFrame  {
         }
     }
 
-    public void MoveR() {
-        System.out.println("moveR");
-        if (Physics.CheckRight(Main.LiveBlocks)) {
-            System.out.println("CheckedR");
+    public void Redraw(Block[] Blocks){
+        for(int i = 0; i < Blocks.length;i++){
+            gt.setColor(Blocks[i].getColor());
+            gt.fillRect(Physics.Xpixels[(Blocks[i].xcord())]+1, Physics.Ypixels[Blocks[i].ycord()]+1, 19, 19);
+        }
+    }
 
+
+    public void MoveR() {
+        if (Physics.CheckRight(Main.LiveBlocks)) {
+            WhiteOut(Main.LiveBlocks);
             Physics.MoveRight(Main.LiveBlocks);
+            Redraw(Main.LiveBlocks);
+        }
+    }
+
+    public void MoveL(){
+        if(Physics.CheckLeft(Main.LiveBlocks)){
+            WhiteOut(Main.LiveBlocks);
+            Physics.MoveLeft(Main.LiveBlocks);
+            Redraw(Main.LiveBlocks);
+        }
+    }
+
+    private void GridDraw(){
+        for (int i = 0; i < Physics.GridLines.length; i++) {
+            gt.setColor(Color.GRAY);
+            Grid current = Physics.GridLines[i];
+            gt.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
+        }
+        for (int i = 0; i < Physics.yGridlines.length; i++) {
+            gt.setColor(Color.GRAY);
+            Grid current = Physics.yGridlines[i];
+            gt.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
         }
     }
 
@@ -92,29 +144,30 @@ public class Window extends JFrame  {
             for (int x = 0; x < Physics.Xarray.length; x++){
                 Color color = Physics.Yarray[y][x].Color;
                 g.setColor(color);
-                g.fillRect(Physics.Xpixels[x], Physics.Ypixels[y], 20, 20 );
+                g.fillRect(Physics.Xpixels[x]+1, Physics.Ypixels[y]+1, 19, 19 );
             }
         }
 
         for (int i = 0; i < Main.LiveBlocks.length; i++) {
             System.out.println(Main.LiveBlocks[i].Color);
             g.setColor(Main.LiveBlocks[i].getColor());
-            g.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())], Physics.Ypixels[Main.LiveBlocks[i].ycord()], 20, 20);
+            g.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())]+1, Physics.Ypixels[Main.LiveBlocks[i].ycord()]+1, 19, 19);
         }
-        for (int i = 0; i < Physics.GridLines.length; i++) {
-            g.setColor(Color.GRAY);
-            Grid current = Physics.GridLines[i];
-            g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
-        }
-        for (int i = 0; i < Physics.yGridlines.length; i++) {
-            g.setColor(Color.GRAY);
-            Grid current = Physics.yGridlines[i];
-            g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
-        }
+//        for (int i = 0; i < Physics.GridLines.length; i++) {
+//            g.setColor(Color.GRAY);
+//            Grid current = Physics.GridLines[i];
+//            g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
+//        }
+//        for (int i = 0; i < Physics.yGridlines.length; i++) {
+//            g.setColor(Color.GRAY);
+//            Grid current = Physics.yGridlines[i];
+//            g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
+//        }
     }
 
     public void main(Window window) {
-        SwingUtilities.invokeLater(() -> {
+
+            addKeyListener(this.window);
             window.setVisible(true);
             window.getGraphics();
             this.window = window;
@@ -123,12 +176,13 @@ public class Window extends JFrame  {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        });
     }
+
 
     public void GameStart() throws InterruptedException {
         gt = getGraphics();
         GridMaker();
+        GridDraw();
 
 
 
@@ -143,18 +197,19 @@ public class Window extends JFrame  {
 
 
             Main.tick++;
-            Thread.sleep(1000);
-            System.out.println(Main.tick);
-            System.out.println(Main.LiveBlocks);
-            Updater();
-            Physics.GridChecker();
-            if (Physics.CheckDown(Main.LiveBlocks)) {
-                Physics.MoveDown(Main.LiveBlocks);
-            } else {
-                Physics.SetBlocks();
-                Main.liveFall = false;
-            }
+            Thread.sleep(1000/60);
 
+            Physics.GridChecker();
+            if(Main.tick % 10 == 0) {
+                if (Physics.CheckDown(Main.LiveBlocks)) {
+                    Physics.MoveDown(Main.LiveBlocks);
+                } else {
+                    Physics.SetBlocks();
+                    Main.liveFall = false;
+                }
+                System.out.println(getKeyListeners());
+                Updater();
+            }
         }
 
 
