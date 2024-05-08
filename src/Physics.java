@@ -12,7 +12,7 @@ public class Physics {
     public static int[] Ypixels = {0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400};
     public static Block[] Xarray = {new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block()};
     public static Block[][] Yarray = new Block[20][];
-    public static Block[] SavedBlocks = {new Block(20,40),new Block(40,40),new Block(60,40),new Block(20,60),new Block(40,60),new Block(60,60),new Block(20,80),new Block(40,80),new Block(60,80), new Block(20,100),new Block(40,100),new Block(60,100),new Block(80,40),new Block(80,60),new Block(80,80), new Block(80, 100), new Block(20, 120),new Block(40, 120),new Block(60, 120),new Block(80, 120)};
+    public static Block[] SavedBlocks = {new Block(20,40),new Block(40,40),new Block(60,40),new Block(20,60),new Block(40,60),new Block(60,60),new Block(20,80),new Block(40,80),new Block(60,80), new Block(20,100),new Block(40,100),new Block(60,100),new Block(80,40),new Block(80,60),new Block(80,80), new Block(80, 100), new Block(20, 120),new Block(40, 120),new Block(60, 120),new Block(80, 120),new Block(100, 120),new Block(100, 100),new Block(100, 80),new Block(100, 60),new Block(100, 40)};
     private static int CurrentBlock;
     private  static int RotatePOS;
     private static int TSLC;
