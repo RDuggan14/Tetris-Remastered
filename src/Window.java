@@ -14,7 +14,7 @@ public class Window extends JFrame implements KeyListener {
     public Graphics gt;
     public static Window window;
     private int TickUpdate = 10;
-    private int lastCheck;
+    public static int lastCheck;
 
     public Window() {
         setTitle("Tetris Remastered");
@@ -52,9 +52,12 @@ public class Window extends JFrame implements KeyListener {
         // Your keyReleased method implementation
     }
 
+public static void ChangeCheck(int x){
+        lastCheck = x;
+}
 
     private void moveDot(KeyEvent e) {
-        System.out.println("Pressed");
+
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_UP:
@@ -67,10 +70,16 @@ public class Window extends JFrame implements KeyListener {
                 break;
             case KeyEvent.VK_RIGHT:
                 MoveR();
-
+                break;
+            case KeyEvent.VK_SPACE:
+                System.out.println("Pressed");
+                Physics.HardDrop();
                 break;
             case KeyEvent.VK_ESCAPE:
                 Main.Pause();
+                break;
+            case KeyEvent.VK_Z:
+                Physics.SaveBlock();
                 break;
         }
 

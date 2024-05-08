@@ -14,6 +14,7 @@ public class Physics {
     private static int CurrentBlock;
     private  static int RotatePOS;
     private static int TSLC;
+    private static int SavedID;
     //INT TO BLOCK
 //    1 - 4Long
 //    2 - TPiece
@@ -22,6 +23,7 @@ public class Physics {
 //    5 - Sqaure
 //    6 - LRifht
 //    7 - LLeft
+
 
         public static void NewField() {
 
@@ -220,6 +222,38 @@ public static void LineClear(){
 }
 
 
+    public static void SaveBlock() {
+        if (SavedID != 0) {
+        int NewSave = CurrentBlock;
+        if (SavedID == 1) {
+            Main.SetLiveBlocks(Fourlong());
+        }
+        if (SavedID == 3) {
+            Main.SetLiveBlocks(ZigRight());
+        }
+        if (SavedID == 4) {
+            Main.SetLiveBlocks(ZigLeft());
+        }
+        if (SavedID == 2) {
+            Main.SetLiveBlocks(TPeice());
+        }
+        if (SavedID == 5) {
+            Main.SetLiveBlocks(Square());
+        }
+        if (SavedID == 6) {
+            Main.SetLiveBlocks(LRight());
+        }
+        if (SavedID == 7) {
+            Main.SetLiveBlocks(LLeft());
+        }
+        SavedID = NewSave;
+    }
+        else{
+            SavedID = CurrentBlock;
+            NewBlocks();
+        }
+    }
+
     public static boolean CordChecker(Block[] Blocks){
             for(var i = 0; i < Blocks.length; i++){
                 if (Blocks[i].ycord() < 0 || Blocks[i].ycord() > 19){
@@ -306,7 +340,16 @@ public static void LineClear(){
 
 
 
-
+    public static void HardDrop(){
+            Block[] TempChords = Main.LiveBlocks;
+        while (CheckDown(TempChords)) {
+            for(int i = 0; i < TempChords.length;i++){
+                TempChords[i].ychange(TempChords[i].ycord()+1);
+            }
+        }
+        Window.ChangeCheck(3);
+        Main.LiveBlocks = TempChords;
+    }
 
     public static void MoveDown(Block[] LiveBlocks) {
         for (int i = 0; i < LiveBlocks.length; i++) {
