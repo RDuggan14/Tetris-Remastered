@@ -7,10 +7,12 @@ public class Physics {
 
     public static Grid[] GridLines = {new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid()};
     public static Grid[] yGridlines = {new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid()};
+    public static Grid[] SavedBlockGridLines = {new Grid(100, 150, 20, 20),new Grid(100, 150, 80, 80),new Grid(100, 100, 20, 80),new Grid(150, 150, 20, 80), new Grid(120, 120, 20, 80),new Grid(140, 140, 20, 80),};
     public static int[] Xpixels = {200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420};
     public static int[] Ypixels = {0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400};
     public static Block[] Xarray = {new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block()};
     public static Block[][] Yarray = new Block[20][];
+    public static Block[] SavedBlocks = {new Block(20,40),new Block(40,40),new Block(60,40),new Block(20,60),new Block(40,60),new Block(60,60),new Block(20,80),new Block(40,80),new Block(60,80), new Block(20,100),new Block(40,100),new Block(60,100),new Block(80,40),new Block(80,60),new Block(80,80), new Block(80, 100), new Block(20, 120),new Block(40, 120),new Block(60, 120),new Block(80, 120)};
     private static int CurrentBlock;
     private  static int RotatePOS;
     private static int TSLC;
@@ -36,12 +38,12 @@ public class Physics {
         }
 
         for (int i = 0; i < Xpixels.length-1; i++) {
-            System.out.println((Xpixels[i]));
             GridLines[i] = new Grid(Xpixels[i], Xpixels[i], Ypixels[1], Ypixels[20]);
         }
         for (int i = 0; i < Ypixels.length;i++){
             yGridlines[i] = new Grid(Xpixels[0], Xpixels[10], Ypixels[i], Ypixels[i]);
         }
+
 
     }
 

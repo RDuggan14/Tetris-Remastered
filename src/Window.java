@@ -110,6 +110,12 @@ public static void ChangeCheck(int x){
             gt.drawLine(current.xcord(), current.ycord(), current.xcord(), current.yycord);
 
         }
+        for (int i = 0; i < Physics.SavedBlockGridLines.length; i++) {
+            Grid current = Physics.SavedBlockGridLines[i];
+            gt.drawLine(current.xcord(), current.ycord(), current.xcord(), current.yycord);
+
+        }
+
     }
 
     public void Redraw(Block[] Blocks){
@@ -118,6 +124,8 @@ public static void ChangeCheck(int x){
             gt.fillRect(Physics.Xpixels[(Blocks[i].xcord())]+1, Physics.Ypixels[Blocks[i].ycord()]+1, 19, 19);
         }
     }
+
+
 
 
     public void MoveR() {
@@ -147,6 +155,11 @@ public static void ChangeCheck(int x){
             Grid current = Physics.yGridlines[i];
             gt.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
         }
+        for (int i = 0; i < Physics.SavedBlockGridLines.length; i++) {
+            gt.setColor(Color.GRAY);
+            Grid current = Physics.SavedBlockGridLines[i];
+            gt.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
+        }
     }
 
     @Override
@@ -160,6 +173,11 @@ public static void ChangeCheck(int x){
                 g.setColor(color);
                 g.fillRect(Physics.Xpixels[x]+1, Physics.Ypixels[y]+1, 19, 19 );
             }
+        }
+
+        for (int i = 0; i < Physics.SavedBlocks.length; i++) {
+            g.setColor(Physics.SavedBlocks[i].getColor());
+            g.fillRect(Physics.SavedBlocks[i].xcord(), Physics.SavedBlocks[i].ycord(), 19, 19);
         }
 
         for (int i = 0; i < Main.LiveBlocks.length; i++) {
