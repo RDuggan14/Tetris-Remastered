@@ -16,7 +16,8 @@ public class Physics {
     private static int CurrentBlock;
     private  static int RotatePOS;
     private static int TSLC;
-    private static int SavedID;
+    public static int SavedID;
+    public static Block[][] SavedY = new Block[6][];
     //INT TO BLOCK
 //    1 - 4Long
 //    2 - TPiece
@@ -25,6 +26,15 @@ public class Physics {
 //    5 - Sqaure
 //    6 - LRifht
 //    7 - LLeft
+
+
+
+        public static void CreateSavedBlock(){
+            for(int i = 0; i < 6; i++){
+                Block[] xarray = {new Block(20, 20*i),new Block(40, 20*i),new Block(60, 20*i),new Block(80, 20*i),new Block(20, 20*i),new Block(100, 20*i)};
+                SavedY[i] = xarray;
+            }
+        }
 
 
         public static void NewField() {
@@ -185,7 +195,6 @@ public class Physics {
 public static void LineClear(){
             int[] ClearLines = {99,99,99,99};
             int LineClears = 0;
-    System.out.println("LineCHecker");
 
             for(int i = 0; i < Yarray.length;i++){
                 int LineOccu = 0;
@@ -197,20 +206,15 @@ public static void LineClear(){
                      }
 
                  }
-                System.out.println(LineOccu + " LINE");
                  if(LineOccu == Xarray.length){
-                     System.out.println(LineOccu + " LINE");
                      ClearLines[LineClears] = i;
                      LineClears++;
-
-
                  }
             }
             for(int i = 0; i < ClearLines.length; i++){
                 if(ClearLines[i] != 99){
                     for(int y = 0; y < ClearLines[i];y++){
                         int x = ClearLines[i] - y;
-                        System.out.println(x);
                         if(x == 0){
                             Yarray[x] = Xarray;
                         }
@@ -225,6 +229,12 @@ public static void LineClear(){
 
 
     public static void SaveBlock() {
+            RotatePOS = 0;
+        for(int i = 0; i < SavedY.length; i++){
+            for(int x = 0; x < 6;x++){
+               SavedY[i][x] = new Block(SavedY[i][x].xcord(), SavedY[i][x].ycord());
+            }
+        }
         if (SavedID != 0) {
         int NewSave = CurrentBlock;
         if (SavedID == 1) {
@@ -342,15 +352,20 @@ public static void LineClear(){
 
 
 
-    public static void HardDrop(){
-            Block[] TempChords = Main.LiveBlocks;
-        while (CheckDown(TempChords)) {
-            for(int i = 0; i < TempChords.length;i++){
-                TempChords[i].ychange(TempChords[i].ycord()+1);
+    public static void HardDrop() {
+        Block[] TempChords = Main.LiveBlocks;
+        if (!CheckDown(TempChords)) {
+            Window.BlockDropUpdater();
+
+        } else {
+            while (CheckDown(TempChords)) {
+                for (int i = 0; i < TempChords.length; i++) {
+                    TempChords[i].ychange(TempChords[i].ycord() + 1);
+                }
             }
+            Main.LiveBlocks = TempChords;
+            Window.BlockDropUpdater();
         }
-        Window.ChangeCheck(3);
-        Main.LiveBlocks = TempChords;
     }
 
     public static void MoveDown(Block[] LiveBlocks) {
