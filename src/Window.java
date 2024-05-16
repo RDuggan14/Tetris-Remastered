@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferStrategy;
 import java.sql.Time;
 import java.util.Arrays;
 import java.awt.event.KeyEvent;
@@ -10,7 +11,7 @@ import java.util.Optional;
 public class Window extends JFrame implements KeyListener {
 //    private int dotX = 100;
 //    private int dotY = 100;
-
+    private BufferStrategy bs;
     public Graphics gt;
     public static Window window;
     private int TickUpdate = 10;
@@ -22,12 +23,11 @@ public class Window extends JFrame implements KeyListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-
-
+        createBufferStrategy(2);
+        bs = this.getBufferStrategy();
         setFocusable(true);
         addKeyListener(this);
         requestFocusInWindow();
-
     }
 
 
@@ -158,6 +158,18 @@ public static void ChangeCheck(int x){
 
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
+        Graphics g2 = null;
+        try{
+            g2 = (Graphics) bs.getDrawGraphics();
+
+        }finally{
+            g2.dispose();
+
+        }
+        bs.show();
+
+        GridDraw();
         //Super.Paint is needed to run the Paint function // idk why just Java required
         //super.paint(gt);
 
