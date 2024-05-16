@@ -23,8 +23,6 @@ public class Window extends JFrame implements KeyListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        createBufferStrategy(2);
-        bs = this.getBufferStrategy();
         setFocusable(true);
         addKeyListener(this);
         requestFocusInWindow();
@@ -126,7 +124,6 @@ public static void ChangeCheck(int x){
 
         }
         for (int i = 0; i < Main.LiveBlocks.length; i++) {
-            System.out.println(Main.LiveBlocks[i].Color);
             gt.setColor(Main.LiveBlocks[i].getColor());
             gt.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())]+1, Physics.Ypixels[Main.LiveBlocks[i].ycord()]+1, 19, 19);
         }
@@ -158,18 +155,41 @@ public static void ChangeCheck(int x){
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
-        Graphics g2 = null;
-        try{
-            g2 = (Graphics) bs.getDrawGraphics();
 
-        }finally{
-            g2.dispose();
+        Graphics g2;
 
-        }
-        bs.show();
+        do {
+            g2 = (Graphics2D) bs.getDrawGraphics();
+            try {
+                g2 = (Graphics2D) bs.getDrawGraphics();
+                for (int y = 0; y < Physics.Yarray.length; y++) {
+                    for (int x = 0; x < Physics.Xarray.length; x++) {
+                        Color color = Physics.Yarray[y][x].Color;
+                        g2.setColor(color);
+                        g2.fillRect(Physics.Xpixels[x] + 1, Physics.Ypixels[y] + 1, 19, 19);
+                    }
+                }
 
-        GridDraw();
+                for (int y = 0; y < Physics.SavedY.length; y++) {
+                    Block[] xarry = Physics.SavedY[y];
+                    for (int x = 0; x < xarry.length; x++) {
+
+                        g2.setColor(Color.white);
+                        g2.fillRect(xarry[x].xcord(), xarry[x].ycord() + 40, 19, 19);
+                    }
+
+                }
+                for (int i = 0; i < Main.LiveBlocks.length; i++) {
+                    g2.setColor(Main.LiveBlocks[i].getColor());
+                    g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
+                }
+            } finally {
+                g2.dispose();
+
+            }
+            bs.show();
+        }while(bs.contentsLost());
+        //GridDraw();
         //Super.Paint is needed to run the Paint function // idk why just Java required
         //super.paint(gt);
 
@@ -192,7 +212,10 @@ public static void ChangeCheck(int x){
 
             addKeyListener(this.window);
             window.setVisible(true);
-            window.getGraphics();
+            createBufferStrategy(2);
+        bs = this.getBufferStrategy();
+
+        window.getGraphics();
             this.window = window;
             try {
                 GameStart();
@@ -213,8 +236,6 @@ public static void ChangeCheck(int x){
         gt = getGraphics();
         GridMaker();
         GridDraw();
-        java.awt.Window[] c = getWindows();
-        c[0].setBackground(Color.BLUE);
 
 
 
@@ -229,7 +250,7 @@ public static void ChangeCheck(int x){
             Main.tick++;
             Thread.sleep(1000/60);
             if((Main.tick & 5) == 0){
-                GridDraw();
+                paint(gt);
             }
 
             //Physics.GridChecker();
