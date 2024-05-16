@@ -31,20 +31,19 @@ public class Window extends JFrame implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println("test");
+
         // Your keyTyped method implementation
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("test");
+
         moveDot(e);
         // Your keyPressed method implementation
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println("test");
 
         // Your keyReleased method implementation
     }
@@ -81,27 +80,9 @@ public static void ChangeCheck(int x){
     }
 
 
-    public void ChangeTick(int NewTick){
-        TickUpdate = NewTick;
-    }
-
-    public void WhiteOut(Block[] Blocks){
-        for(int i = 0; i < Blocks.length;i++){
-            gt.setColor(Color.WHITE);
-            gt.fillRect(Physics.Xpixels[(Blocks[i].xcord())]+1, Physics.Ypixels[Blocks[i].ycord()]+1, 19, 19);
-        }
-    }
-
     public void GridMaker() {
         Physics.CreateSavedBlock();
         Physics.NewField();
-    }
-
-    public void Redraw(Block[] Blocks){
-        for(int i = 0; i < Blocks.length;i++){
-            gt.setColor(Blocks[i].getColor());
-            gt.fillRect(Physics.Xpixels[(Blocks[i].xcord())]+1, Physics.Ypixels[Blocks[i].ycord()]+1, 19, 19);
-        }
     }
 
 
@@ -226,16 +207,17 @@ public static void ChangeCheck(int x){
 
 
     public static void BlockDropUpdater(){
+        lastCheck = 0;
+        Main.liveFall = false;
         Physics.SetBlocks();
         Physics.LineClear();
-        Main.liveFall = false;
-        lastCheck = 0;
     }
 
     public void GameStart() throws InterruptedException {
         gt = getGraphics();
         GridMaker();
         GridDraw();
+
 
 
 
@@ -251,9 +233,11 @@ public static void ChangeCheck(int x){
             Thread.sleep(1000/60);
             if((Main.tick & 5) == 0){
                 paint(gt);
+                Physics.GridChecker();
+                System.out.println("Break");
             }
 
-            //Physics.GridChecker();
+
             if(Main.tick % 20 == 0) {
 
                 if (Physics.CheckDown(Main.LiveBlocks)) {

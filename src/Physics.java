@@ -206,7 +206,7 @@ public static void LineClear(){
                      }
 
                  }
-                 if(LineOccu == Xarray.length){
+                 if(LineOccu == CurrentYLine.length){
                      ClearLines[LineClears] = i;
                      LineClears++;
                  }
@@ -215,8 +215,15 @@ public static void LineClear(){
                 if(ClearLines[i] != 99){
                     for(int y = 0; y < ClearLines[i];y++){
                         int x = ClearLines[i] - y;
-                        if(x == 0){
-                            Yarray[x] = Xarray;
+                        if(x == 1){
+                            for(int z = 0; z < Xarray.length; z++){
+                                Yarray[x][z] = new Block();
+                            }
+                            //THIS NEEDS FIX
+                            ??
+                            ??
+                            ??
+                            Yarray[1] = Yarray[0];
                         }
                         else{
                             Yarray[x] = Yarray[(x - 1)];
@@ -476,9 +483,7 @@ public static void LineClear(){
     public static boolean CheckDown(Block[] LiveBlocks) {
         for (int i = 0; i < LiveBlocks.length; i++) {
             Block current = LiveBlocks[i];
-            System.out.println(current.ycord());
             if((current.ycord() + 1) == 20  ){
-                System.out.printf("out of bounds");
                 return (false);
             }
             if (GetBlock(current.xcord(), (current.ycord() + 1)).Occupied == true) {
@@ -492,8 +497,9 @@ public static void LineClear(){
 
     public static void SetBlocks(){
         for(int i = 0; i < Main.LiveBlocks.length; i++){
-           Block Block = Yarray[Main.LiveBlocks[i].ycord()][Main.LiveBlocks[i].xcord()];
-            Block.UpdateBlock(true, Main.LiveBlocks[i].Color);
+            Yarray[Main.LiveBlocks[i].ycord()][ Main.LiveBlocks[i].xcord()] = Main.LiveBlocks[i];
+           //Block Block = Yarray[Main.LiveBlocks[i].ycord()][Main.LiveBlocks[i].xcord()];
+            //Block.UpdateBlock(true, Main.LiveBlocks[i].Color);
         }
     }
 
