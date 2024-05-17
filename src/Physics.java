@@ -5,19 +5,16 @@ import java.util.random.RandomGenerator;
 
 public class Physics {
 
-    public static Grid[] GridLines = {new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid(), new Grid()};
-    public static Grid[] yGridlines = {new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid(),new Grid()};
-    public static Grid[] SavedBlockGridLines = {new Grid(100, 150, 20, 20),new Grid(100, 150, 80, 80),new Grid(100, 100, 20, 80),new Grid(150, 150, 20, 80), new Grid(120, 120, 20, 80),new Grid(140, 140, 20, 80),};
+
     public static int[] Xpixels = {200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420};
     public static int[] Ypixels = {0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400};
     public static Block[] Xarray = {new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block()};
     public static Block[][] Yarray = new Block[20][];
-    public static Block[] SavedBlocks = {new Block(20,40),new Block(40,40),new Block(60,40),new Block(20,60),new Block(40,60),new Block(60,60),new Block(20,80),new Block(40,80),new Block(60,80), new Block(20,100),new Block(40,100),new Block(60,100),new Block(80,40),new Block(80,60),new Block(80,80), new Block(80, 100), new Block(20, 120),new Block(40, 120),new Block(60, 120),new Block(80, 120),new Block(100, 120),new Block(100, 100),new Block(100, 80),new Block(100, 60),new Block(100, 40)};
     private static int CurrentBlock;
     private  static int RotatePOS;
     private static int TSLC;
     public static int SavedID;
-    public static Block[][] SavedY = new Block[6][];
+    public static Block[][] SavedY = new Block[5][];
     //INT TO BLOCK
 //    1 - 4Long
 //    2 - TPiece
@@ -30,8 +27,9 @@ public class Physics {
 
 
         public static void CreateSavedBlock(){
-            for(int i = 0; i < 6; i++){
-                Block[] xarray = {new Block(20, 20*i),new Block(40, 20*i),new Block(60, 20*i),new Block(80, 20*i),new Block(20, 20*i),new Block(100, 20*i)};
+            for(int i = 0; i < 5; i++){
+                Color color = Color.WHITE;
+                Block[] xarray = {new Block(20, 20*i, color),new Block(40, 20*i,color),new Block(60, 20*i,color),new Block(80, 20*i,color),new Block(100, 20*i,color),new Block(120, 20*i,color)};
                 SavedY[i] = xarray;
             }
         }
@@ -45,13 +43,6 @@ public class Physics {
                 Xarray[i] = new Block();
             }
             Yarray[y] = Xarray;
-        }
-
-        for (int i = 0; i < Xpixels.length-1; i++) {
-            GridLines[i] = new Grid(Xpixels[i], Xpixels[i], Ypixels[1], Ypixels[20]);
-        }
-        for (int i = 0; i < Ypixels.length;i++){
-            yGridlines[i] = new Grid(Xpixels[0], Xpixels[10], Ypixels[i], Ypixels[i]);
         }
 
 
@@ -238,13 +229,53 @@ public static void LineClear(){
 
     public static void SaveBlock() {
             RotatePOS = 0;
-        for(int i = 0; i < SavedY.length; i++){
-            for(int x = 0; x < 6;x++){
-               SavedY[i][x] = new Block(SavedY[i][x].xcord(), SavedY[i][x].ycord());
-            }
-        }
-        if (SavedID != 0) {
         int NewSave = CurrentBlock;
+        CreateSavedBlock();
+        if (NewSave == 1) {
+            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][4].UpdateBlock(true, Main.LiveBlocks[0].Color);
+        }
+        if (NewSave == 3) {
+            SavedY[1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+        }
+        if (NewSave == 4) {
+            SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+        }
+        if (NewSave == 2) {
+            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+        }
+        if (NewSave == 5) {
+            SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+        }
+        if (NewSave == 6) {
+            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+        }
+        if (NewSave == 7) {
+            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+            SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+        }
+
+        if (SavedID != 0) {
+
         if (SavedID == 1) {
             Main.SetLiveBlocks(Fourlong());
         }
@@ -272,6 +303,7 @@ public static void LineClear(){
             SavedID = CurrentBlock;
             NewBlocks();
         }
+
     }
 
     public static boolean CordChecker(Block[] Blocks){
@@ -508,6 +540,15 @@ public static void LineClear(){
         for(int i = 0; i < Yarray.length; i++) {
             for (int x = 0; x < Xarray.length; x++) {
                 System.out.print(Yarray[i][x].Occupied + " ( " + Yarray[i][x] + " ) " + Yarray[i][x].Color + " ,");
+            }
+            System.out.println("New");
+        }
+    }
+
+    public static void SavedChecker(){
+        for(int i = 0; i < SavedY.length; i++) {
+            for (int x = 0; x < 6; x++) {
+                System.out.print(SavedY[i][x].Occupied + " ( " + SavedY[i][x] + " ) " + SavedY[i][x].Color + " ,");
             }
             System.out.println("New");
         }

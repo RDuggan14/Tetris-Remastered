@@ -1,12 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferStrategy;
-import java.sql.Time;
-import java.util.Arrays;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Optional;
 
 public class Window extends JFrame implements KeyListener {
 //    private int dotX = 100;
@@ -123,15 +119,6 @@ public static void ChangeCheck(int x){
         }
     }
 
-    public void DrawLive(){
-
-        for (int i = 0; i < Main.LiveBlocks.length; i++) {
-            System.out.println(Main.LiveBlocks[i].Color);
-            gt.setColor(Main.LiveBlocks[i].getColor());
-            gt.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())]+1, Physics.Ypixels[Main.LiveBlocks[i].ycord()]+1, 19, 19);
-        }
-
-    }
 
 
     @Override
@@ -155,7 +142,7 @@ public static void ChangeCheck(int x){
                     Block[] xarry = Physics.SavedY[y];
                     for (int x = 0; x < xarry.length; x++) {
 
-                        g2.setColor(Color.white);
+                        g2.setColor(xarry[x].getColor());
                         g2.fillRect(xarry[x].xcord(), xarry[x].ycord() + 40, 19, 19);
                     }
 
@@ -170,23 +157,6 @@ public static void ChangeCheck(int x){
             }
             bs.show();
         }while(bs.contentsLost());
-        //GridDraw();
-        //Super.Paint is needed to run the Paint function // idk why just Java required
-        //super.paint(gt);
-
-
-
-
-//        for (int i = 0; i < Physics.GridLines.length; i++) {
-//            g.setColor(Color.GRAY);
-//            Grid current = Physics.GridLines[i];
-//            g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
-//        }
-//        for (int i = 0; i < Physics.yGridlines.length; i++) {
-//            g.setColor(Color.GRAY);
-//            Grid current = Physics.yGridlines[i];
-//            g.drawLine(current.xcord, current.ycord, current.xxcord, current.yycord);
-//        }
     }
 
     public void main(Window window) {
@@ -233,7 +203,8 @@ public static void ChangeCheck(int x){
             Thread.sleep(1000/60);
             if((Main.tick & 5) == 0){
                 paint(gt);
-                Physics.GridChecker();
+                //Physics.GridChecker();
+                Physics.SavedChecker();
                 System.out.println("Break");
             }
 
