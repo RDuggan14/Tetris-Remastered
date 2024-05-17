@@ -15,6 +15,8 @@ public class Physics {
     private static int TSLC;
     public static int SavedID;
     public static Block[][] SavedY = new Block[5][];
+    public static Block[][][] Queue = new Block[3][6][];
+    private static int[] BlockQueue = {generateRandomNumber(),generateRandomNumber(),generateRandomNumber()};
     //INT TO BLOCK
 //    1 - 4Long
 //    2 - TPiece
@@ -31,6 +33,17 @@ public class Physics {
                 Color color = Color.WHITE;
                 Block[] xarray = {new Block(20, 20*i, color),new Block(40, 20*i,color),new Block(60, 20*i,color),new Block(80, 20*i,color),new Block(100, 20*i,color),new Block(120, 20*i,color)};
                 SavedY[i] = xarray;
+            }
+        }
+
+        public static void CreateQueue(){
+            for(int i = 0; i < 3; i++){
+                for(int y = 0; y < 5; y++){
+                    Color color = Color.WHITE;
+                    Block[] temp = {new Block(440, 20*y + (100*i), color),new Block(460, 20*y + (100*i),color),new Block(480, 20*y + (100*i),color),new Block(500, 20*y + (100*i),color),new Block(520, 20*y + (100*i),color),new Block(540, 20*y + (100*i),color)};
+                    Queue[i][y] = temp;
+                }
+
             }
         }
 
@@ -227,6 +240,58 @@ public static void LineClear(){
 }
 
 
+    public static void UpdateQueue(){
+        CreateQueue();
+            for(int i = 0; i < 3; i++){
+                int number = BlockQueue[i];
+                if (number == 0) {
+                    Queue[i][2][1].UpdateBlock(true, Color.BLUE);
+                    Queue[i][2][2].UpdateBlock(true, Color.BLUE);
+                    Queue[i][2][3].UpdateBlock(true, Color.BLUE);
+                    Queue[i][2][4].UpdateBlock(true, Color.BLUE);
+                }
+                if (number == 1) {
+                    Queue[i][1][3].UpdateBlock(true, Color.PINK);
+                    Queue[i][1][2].UpdateBlock(true, Color.PINK);
+                    Queue[i][2][2].UpdateBlock(true, Color.PINK);
+                    Queue[i][2][1].UpdateBlock(true, Color.PINK);
+                }
+                if (number == 2) {
+                    Queue[i][1][1].UpdateBlock(true, Color.red);
+                    Queue[i][1][2].UpdateBlock(true, Color.red);
+                    Queue[i][2][2].UpdateBlock(true, Color.red);
+                    Queue[i][2][3].UpdateBlock(true, Color.red);
+                }
+                if (number == 2) {
+                    Queue[i][2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+                if (number == 5) {
+                    Queue[i][1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+                if (number == 6) {
+                    Queue[i][2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+                if (number == 7) {
+                    Queue[i][2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+
+
+            }
+    }
+
+
     public static void SaveBlock() {
             RotatePOS = 0;
         int NewSave = CurrentBlock;
@@ -359,7 +424,12 @@ public static void LineClear(){
     public static void NewBlocks() {
             RotatePOS = 0;
 
-        int randomNumber = generateRandomNumber();
+        int randomNumber = BlockQueue[0];
+
+        BlockQueue[0] = BlockQueue[1];
+        BlockQueue[1] = BlockQueue[2];
+        BlockQueue[2] = generateRandomNumber();
+
         if(randomNumber == 0){
             Main.SetLiveBlocks(Fourlong());
         }
