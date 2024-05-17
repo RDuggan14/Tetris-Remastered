@@ -79,6 +79,7 @@ public static void ChangeCheck(int x){
 
     public void GridMaker() {
         Physics.CreateSavedBlock();
+        Physics.CreateQueue();
         Physics.NewField();
     }
 
@@ -158,6 +159,18 @@ public static void ChangeCheck(int x){
                         }
 
                     }
+
+                    for(int y = 0; y < Physics.Queue.length;y++){
+                        for(int z = 0; z < 5; z++){
+                            for(int x = 0; x < 6;x++){
+                                g2.setColor(Physics.Queue[y][z][x].getColor());
+                                g2.fillRect(Physics.Queue[y][z][x].xcord(), Physics.Queue[y][z][x].ycord() + 40, 19, 19);
+
+                            }
+
+                        }
+                    }
+
                     for (int i = 0; i < Main.LiveBlocks.length; i++) {
                         g2.setColor(Main.LiveBlocks[i].getColor());
                         g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
@@ -196,6 +209,7 @@ public static void ChangeCheck(int x){
         Main.liveFall = false;
         Physics.SetBlocks();
         Physics.LineClear();
+        Physics.UpdateQueue();
     }
 
     public void GameStart() throws InterruptedException {
