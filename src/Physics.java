@@ -262,29 +262,29 @@ public static void LineClear(){
                     Queue[i][2][2].UpdateBlock(true, Color.red);
                     Queue[i][2][3].UpdateBlock(true, Color.red);
                 }
-                if (number == 2) {
-                    Queue[i][2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                if (number == 3) {
+                    Queue[i][2][1].UpdateBlock(true, Color.MAGENTA);
+                    Queue[i][2][2].UpdateBlock(true, Color.MAGENTA);
+                    Queue[i][2][3].UpdateBlock(true, Color.MAGENTA);
+                    Queue[i][1][2].UpdateBlock(true, Color.MAGENTA);
+                }
+                if (number == 4) {
+                    Queue[i][1][1].UpdateBlock(true, Color.ORANGE);
+                    Queue[i][1][2].UpdateBlock(true, Color.ORANGE);
+                    Queue[i][2][1].UpdateBlock(true, Color.ORANGE);
+                    Queue[i][2][2].UpdateBlock(true, Color.ORANGE);
                 }
                 if (number == 5) {
-                    Queue[i][1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][1].UpdateBlock(true, Color.CYAN);
+                    Queue[i][2][2].UpdateBlock(true, Color.CYAN);
+                    Queue[i][2][3].UpdateBlock(true, Color.CYAN);
+                    Queue[i][1][1].UpdateBlock(true, Color.CYAN);
                 }
                 if (number == 6) {
-                    Queue[i][2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                }
-                if (number == 7) {
-                    Queue[i][2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    Queue[i][1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    Queue[i][2][1].UpdateBlock(true, Color.BLUE);
+                    Queue[i][2][2].UpdateBlock(true, Color.BLUE);
+                    Queue[i][2][3].UpdateBlock(true, Color.BLUE);
+                    Queue[i][1][3].UpdateBlock(true, Color.BLUE);
                 }
 
 
@@ -421,6 +421,13 @@ public static void LineClear(){
 
     }
 
+    public static void SpeedDrop(){
+        if (Physics.CheckDown(Main.LiveBlocks)) {
+            Physics.MoveDown(Main.LiveBlocks);
+            Window.ChangeScore((Window.Level * 2));
+        }
+    }
+
     public static void NewBlocks() {
             RotatePOS = 0;
 
@@ -429,6 +436,7 @@ public static void LineClear(){
         BlockQueue[0] = BlockQueue[1];
         BlockQueue[1] = BlockQueue[2];
         BlockQueue[2] = generateRandomNumber();
+
 
         if(randomNumber == 0){
             Main.SetLiveBlocks(Fourlong());

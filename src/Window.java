@@ -13,6 +13,8 @@ public class Window extends JFrame implements KeyListener {
     private int TickUpdate = 10;
     public static int lastCheck;
     private boolean stopall = false;
+    private static int Score = 0;
+    public static int Level = 1;
 
     public Window() {
         setTitle("Tetris Remastered");
@@ -57,6 +59,7 @@ public static void ChangeCheck(int x){
                 Physics.rotate();
                 break;
             case KeyEvent.VK_DOWN:
+                Physics.SpeedDrop();
                 break;
             case KeyEvent.VK_LEFT:
                 MoveL();
@@ -81,6 +84,10 @@ public static void ChangeCheck(int x){
         Physics.CreateSavedBlock();
         Physics.CreateQueue();
         Physics.NewField();
+    }
+
+    public static void ChangeScore(int change){
+        Score = Score + change;
     }
 
     public void pauseMenu(){
@@ -212,6 +219,8 @@ public static void ChangeCheck(int x){
         Physics.UpdateQueue();
     }
 
+
+
     public void GameStart() throws InterruptedException {
         gt = getGraphics();
         GridMaker();
@@ -226,6 +235,7 @@ public static void ChangeCheck(int x){
 
                 if (!Main.liveFall) {
                     Physics.NewBlocks();
+                    Physics.UpdateQueue();
                     Main.liveFall = true;
                 }
 
@@ -238,7 +248,7 @@ public static void ChangeCheck(int x){
                 }
 
 
-                if (Main.tick % 20 == 0) {
+                if (Main.tick % 40 == 0) {
 
                     if (Physics.CheckDown(Main.LiveBlocks)) {
                         Physics.MoveDown(Main.LiveBlocks);
