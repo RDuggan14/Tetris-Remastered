@@ -12,6 +12,7 @@ public class Window extends JFrame implements KeyListener {
     public static Window window;
     private int TickUpdate = 10;
     public static int lastCheck;
+    private boolean stopall = false;
 
     public Window() {
         setTitle("Tetris Remastered");
@@ -81,6 +82,16 @@ public static void ChangeCheck(int x){
         Physics.NewField();
     }
 
+    public void pauseMenu(){
+        JLabel Pause = new JLabel("paused",JLabel.CENTER);
+        Pause.setBounds(20, 10, 20 ,20);
+        //JLabel Keys = new JLabel("    L  --  Activate Outlines");
+        add(Pause);
+        setVisible(true);
+        //add(Keys);
+        setVisible(true);
+    }
+
 
     private void GridDraw(){
         for (int y = 0; y < Physics.Yarray.length; y++) {
@@ -125,38 +136,42 @@ public static void ChangeCheck(int x){
     public void paint(Graphics g) {
 
         Graphics g2;
-
-        do {
-            g2 = (Graphics2D) bs.getDrawGraphics();
-            try {
+        if(!Main.pause) {
+            do {
                 g2 = (Graphics2D) bs.getDrawGraphics();
-                for (int y = 0; y < Physics.Yarray.length; y++) {
-                    for (int x = 0; x < Physics.Xarray.length; x++) {
-                        Color color = Physics.Yarray[y][x].Color;
-                        g2.setColor(color);
-                        g2.fillRect(Physics.Xpixels[x] + 1, Physics.Ypixels[y] + 1, 19, 19);
-                    }
-                }
-
-                for (int y = 0; y < Physics.SavedY.length; y++) {
-                    Block[] xarry = Physics.SavedY[y];
-                    for (int x = 0; x < xarry.length; x++) {
-
-                        g2.setColor(xarry[x].getColor());
-                        g2.fillRect(xarry[x].xcord(), xarry[x].ycord() + 40, 19, 19);
+                try {
+                    g2 = (Graphics2D) bs.getDrawGraphics();
+                    for (int y = 0; y < Physics.Yarray.length; y++) {
+                        for (int x = 0; x < Physics.Xarray.length; x++) {
+                            Color color = Physics.Yarray[y][x].Color;
+                            g2.setColor(color);
+                            g2.fillRect(Physics.Xpixels[x] + 1, Physics.Ypixels[y] + 1, 19, 19);
+                        }
                     }
 
-                }
-                for (int i = 0; i < Main.LiveBlocks.length; i++) {
-                    g2.setColor(Main.LiveBlocks[i].getColor());
-                    g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
-                }
-            } finally {
-                g2.dispose();
+                    for (int y = 0; y < Physics.SavedY.length; y++) {
+                        Block[] xarry = Physics.SavedY[y];
+                        for (int x = 0; x < xarry.length; x++) {
 
-            }
-            bs.show();
-        }while(bs.contentsLost());
+                            g2.setColor(xarry[x].getColor());
+                            g2.fillRect(xarry[x].xcord(), xarry[x].ycord() + 40, 19, 19);
+                        }
+
+                    }
+                    for (int i = 0; i < Main.LiveBlocks.length; i++) {
+                        g2.setColor(Main.LiveBlocks[i].getColor());
+                        g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
+                    }
+                } finally {
+                    g2.dispose();
+
+                }
+                bs.show();
+            } while (bs.contentsLost());
+        }
+        else{
+            pauseMenu();
+        }
     }
 
     public void main(Window window) {
@@ -188,47 +203,49 @@ public static void ChangeCheck(int x){
         GridMaker();
         GridDraw();
 
-
-
-
-        while (!Main.pause) {
-
-            if (!Main.liveFall) {
-                Physics.NewBlocks();
-                Main.liveFall = true;
-            }
-
-
+        while (!stopall) {
             Main.tick++;
-            Thread.sleep(1000/60);
-            if((Main.tick & 5) == 0){
-                paint(gt);
-                //Physics.GridChecker();
-                Physics.SavedChecker();
-                System.out.println("Break");
-            }
+            Thread.sleep(1000 / 60);
 
 
-            if(Main.tick % 20 == 0) {
+            if (!Main.pause) {
 
-                if (Physics.CheckDown(Main.LiveBlocks)) {
-                    Physics.MoveDown(Main.LiveBlocks);
+                if (!Main.liveFall) {
+                    Physics.NewBlocks();
+                    Main.liveFall = true;
+                }
 
 
-                } else {
-                    if(lastCheck > 2){
-                        BlockDropUpdater();
-                    }
-                    else{
-                        lastCheck++;
+                if ((Main.tick & 5) == 0) {
+                    paint(gt);
+                    //Physics.GridChecker();
+                    Physics.SavedChecker();
+                    System.out.println("Break");
+                }
+
+
+                if (Main.tick % 20 == 0) {
+
+                    if (Physics.CheckDown(Main.LiveBlocks)) {
+                        Physics.MoveDown(Main.LiveBlocks);
+
+
+                    } else {
+                        if (lastCheck > 2) {
+                            BlockDropUpdater();
+                        } else {
+                            lastCheck++;
+                        }
+
                     }
 
                 }
-
             }
+            else{
+                pauseMenu();
+            }
+
+
         }
-
-
     }
-
 }

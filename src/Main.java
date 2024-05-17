@@ -13,7 +13,7 @@ public class Main {
 
     public static Block[] LiveBlocks = {};
     public static boolean liveFall = false;
-    public static boolean pause = false;
+    public static boolean pause = true;
     public static int tick = 0;
 
     public static void main(String[] args) throws InterruptedException {
