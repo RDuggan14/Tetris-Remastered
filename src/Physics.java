@@ -215,15 +215,16 @@ public static void LineClear(){
                 if(ClearLines[i] != 99){
                     for(int y = 0; y < ClearLines[i];y++){
                         int x = ClearLines[i] - y;
+                        System.out.println(x);
+                        System.out.println(y);
                         if(x == 1){
-                            for(int z = 0; z < Xarray.length; z++){
-                                Yarray[x][z] = new Block();
+                            Yarray[x] = Yarray[(x - 1)];
+                            Block[] tempx = {new Block(),new Block(),new Block(), new Block(),new Block(),new Block(), new Block(),new Block(),new Block(),new Block()};
+                            for (int z = 0; z < 10; z++) {
+                                tempx[z] = new Block();
                             }
-                            //THIS NEEDS FIX
-                            ??
-                            ??
-                            ??
-                            Yarray[1] = Yarray[0];
+                            Yarray[0] = tempx;
+                            System.out.println(Arrays.toString(tempx));
                         }
                         else{
                             Yarray[x] = Yarray[(x - 1)];
