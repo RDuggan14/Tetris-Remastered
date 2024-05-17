@@ -199,6 +199,7 @@ public class Physics {
 public static void LineClear(){
             int[] ClearLines = {99,99,99,99};
             int LineClears = 0;
+            int totalLines = 0;
 
             for(int i = 0; i < Yarray.length;i++){
                 int LineOccu = 0;
@@ -217,6 +218,7 @@ public static void LineClear(){
             }
             for(int i = 0; i < ClearLines.length; i++){
                 if(ClearLines[i] != 99){
+                    totalLines++;
                     for(int y = 0; y < ClearLines[i];y++){
                         int x = ClearLines[i] - y;
                         System.out.println(x);
@@ -236,6 +238,7 @@ public static void LineClear(){
                     }
 
                 }
+                Window.ChangeScore(100 * totalLines * Window.Level);
             }
 }
 
@@ -476,13 +479,16 @@ public static void LineClear(){
             Window.BlockDropUpdater();
 
         } else {
+            int totalDrop = 0;
             while (CheckDown(TempChords)) {
                 for (int i = 0; i < TempChords.length; i++) {
                     TempChords[i].ychange(TempChords[i].ycord() + 1);
                 }
+                totalDrop++;
             }
             Main.LiveBlocks = TempChords;
             Window.BlockDropUpdater();
+            Window.ChangeScore(5 * totalDrop * Window.Level);
         }
     }
 

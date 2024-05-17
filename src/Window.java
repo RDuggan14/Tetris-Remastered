@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Window extends JFrame implements KeyListener {
 //    private int dotX = 100;
@@ -101,6 +104,9 @@ public static void ChangeCheck(int x){
     }
 
 
+
+
+
     private void GridDraw(){
         for (int y = 0; y < Physics.Yarray.length; y++) {
             for (int x = 0; x < Physics.Xarray.length; x++){
@@ -142,7 +148,6 @@ public static void ChangeCheck(int x){
 
     @Override
     public void paint(Graphics g) {
-
         Graphics g2;
         if(!Main.pause) {
             do {
@@ -167,9 +172,9 @@ public static void ChangeCheck(int x){
 
                     }
 
-                    for(int y = 0; y < Physics.Queue.length;y++){
-                        for(int z = 0; z < 5; z++){
-                            for(int x = 0; x < 6;x++){
+                    for (int y = 0; y < Physics.Queue.length; y++) {
+                        for (int z = 0; z < 5; z++) {
+                            for (int x = 0; x < 6; x++) {
                                 g2.setColor(Physics.Queue[y][z][x].getColor());
                                 g2.fillRect(Physics.Queue[y][z][x].xcord(), Physics.Queue[y][z][x].ycord() + 40, 19, 19);
 
@@ -182,12 +187,24 @@ public static void ChangeCheck(int x){
                         g2.setColor(Main.LiveBlocks[i].getColor());
                         g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
                     }
+                    File file = new File("HighScore.Txt");
+                    g2.setColor(Color.white);
+                    g2.fillRect(620, 10, 150, 100);
+                    g2.setFont(new Font("Arial", Font.BOLD, 14));
+                    g2.setColor(Color.BLACK);
+                    g2.drawString("Current Score", 650, 50);
+                    g2.drawString(String.valueOf(Score), 670, 70);
+                    //g2.drawString("HighScore", 690, 50);
+//                    FileReader fileCode = (new FileReader(file));
+//                    String high = fileCode.toString();
+//                    g2.drawString(high,690, 80);
+
                 } finally {
                     g2.dispose();
-
+                    bs.show();
                 }
-                bs.show();
-            } while (bs.contentsLost());
+            } while (bs.contentsLost()) ;
+
         }
         else{
             pauseMenu();
