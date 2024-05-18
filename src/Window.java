@@ -18,7 +18,7 @@ public class Window extends JFrame implements KeyListener {
     private boolean stopall = false;
     private static int Score = 0;
     public static int Level = 1;
-
+    private static boolean tracer = false;
     public Window() {
         setTitle("Tetris Remastered");
         setSize(800, 600);
@@ -78,6 +78,13 @@ public static void ChangeCheck(int x){
                 break;
             case KeyEvent.VK_Z:
                 Physics.SaveBlock();
+                break;
+            case KeyEvent.VK_L:
+                if(tracer){
+                    tracer = false;
+                }else{
+                    tracer = true;
+                }
                 break;
         }
     }
@@ -187,6 +194,23 @@ public static void ChangeCheck(int x){
                         g2.setColor(Main.LiveBlocks[i].getColor());
                         g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
                     }
+
+                    if(tracer){
+                        Block[] tracercords = Physics.Tracer();
+                        Boolean Samelocate = false;
+//                        for(var i = 0; i < tracercords.length;i++){
+//                            if(tracercords[i].xcord() == Main.LiveBlocks[0].xcord() && tracercords[i].ycord() == Main.LiveBlocks[0].ycord()){
+//                                Samelocate = true;
+//                            }
+//                        }
+                        //if(!Samelocate){
+                            for (int i = 0; i < tracercords.length; i++) {
+                                g2.setColor(Color.MAGENTA);
+                                g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 1, Physics.Ypixels[tracercords[i].ycord()] + 1, 19, 19);
+                            }
+                       // }
+                    }
+
                     File file = new File("HighScore.Txt");
                     g2.setColor(Color.white);
                     g2.fillRect(620, 10, 150, 100);

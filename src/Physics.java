@@ -12,7 +12,7 @@ public class Physics {
     public static Block[][] Yarray = new Block[20][];
     private static int CurrentBlock;
     private  static int RotatePOS;
-    private static int TSLC;
+    public static int TSLC = 0;
     public static int SavedID;
     public static Block[][] SavedY = new Block[5][];
     public static Block[][][] Queue = new Block[3][6][];
@@ -243,6 +243,8 @@ public static void LineClear(){
 }
 
 
+
+
     public static void UpdateQueue(){
         CreateQueue();
             for(int i = 0; i < 3; i++){
@@ -296,82 +298,83 @@ public static void LineClear(){
 
 
     public static void SaveBlock() {
-            RotatePOS = 0;
-        int NewSave = CurrentBlock;
-        CreateSavedBlock();
-        if (NewSave == 1) {
-            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][4].UpdateBlock(true, Main.LiveBlocks[0].Color);
-        }
-        if (NewSave == 3) {
-            SavedY[1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-        }
-        if (NewSave == 4) {
-            SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-        }
-        if (NewSave == 2) {
-            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-        }
-        if (NewSave == 5) {
-            SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-        }
-        if (NewSave == 6) {
-            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-        }
-        if (NewSave == 7) {
-            SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-            SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-        }
+            if(TSLC == 0) {
+                RotatePOS = 0;
+                TSLC = 1;
+                int NewSave = CurrentBlock;
+                CreateSavedBlock();
+                if (NewSave == 1) {
+                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][4].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+                if (NewSave == 3) {
+                    SavedY[1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+                if (NewSave == 4) {
+                    SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+                if (NewSave == 2) {
+                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+                if (NewSave == 5) {
+                    SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+                if (NewSave == 6) {
+                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
+                if (NewSave == 7) {
+                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                    SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
+                }
 
-        if (SavedID != 0) {
+                if (SavedID != 0) {
 
-        if (SavedID == 1) {
-            Main.SetLiveBlocks(Fourlong());
-        }
-        if (SavedID == 3) {
-            Main.SetLiveBlocks(ZigRight());
-        }
-        if (SavedID == 4) {
-            Main.SetLiveBlocks(ZigLeft());
-        }
-        if (SavedID == 2) {
-            Main.SetLiveBlocks(TPeice());
-        }
-        if (SavedID == 5) {
-            Main.SetLiveBlocks(Square());
-        }
-        if (SavedID == 6) {
-            Main.SetLiveBlocks(LRight());
-        }
-        if (SavedID == 7) {
-            Main.SetLiveBlocks(LLeft());
-        }
-        SavedID = NewSave;
-    }
-        else{
-            SavedID = CurrentBlock;
-            NewBlocks();
-        }
-
+                    if (SavedID == 1) {
+                        Main.SetLiveBlocks(Fourlong());
+                    }
+                    if (SavedID == 3) {
+                        Main.SetLiveBlocks(ZigRight());
+                    }
+                    if (SavedID == 4) {
+                        Main.SetLiveBlocks(ZigLeft());
+                    }
+                    if (SavedID == 2) {
+                        Main.SetLiveBlocks(TPeice());
+                    }
+                    if (SavedID == 5) {
+                        Main.SetLiveBlocks(Square());
+                    }
+                    if (SavedID == 6) {
+                        Main.SetLiveBlocks(LRight());
+                    }
+                    if (SavedID == 7) {
+                        Main.SetLiveBlocks(LLeft());
+                    }
+                    SavedID = NewSave;
+                } else {
+                    SavedID = CurrentBlock;
+                    NewBlocks();
+                }
+            }
     }
 
     public static boolean CordChecker(Block[] Blocks){
@@ -432,6 +435,7 @@ public static void LineClear(){
     }
 
     public static void NewBlocks() {
+        TSLC = 0;
             RotatePOS = 0;
 
         int randomNumber = BlockQueue[0];
@@ -470,6 +474,21 @@ public static void LineClear(){
         //Main.SetLiveBlocks(LRight());
 
     }
+
+    public static Block[] Tracer(){
+        Block[] Tracer = Main.LiveBlocks;
+        if (!CheckDown(Tracer)) {
+            return Tracer;
+        } else {
+            while (CheckDown(Tracer)) {
+                for (int i = 0; i < Tracer.length; i++) {
+                    Tracer[i].ychange(Tracer[i].ycord() + 1);
+                }
+            }
+        }
+        return Tracer;
+    }
+
 
 
 
