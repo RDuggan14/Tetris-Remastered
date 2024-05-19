@@ -195,20 +195,18 @@ public static void ChangeCheck(int x){
                         g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
                     }
 
+
                     if(tracer){
+
                         Block[] tracercords = Physics.Tracer();
-                        Boolean Samelocate = false;
-//                        for(var i = 0; i < tracercords.length;i++){
-//                            if(tracercords[i].xcord() == Main.LiveBlocks[0].xcord() && tracercords[i].ycord() == Main.LiveBlocks[0].ycord()){
-//                                Samelocate = true;
-//                            }
-//                        }
-                        //if(!Samelocate){
                             for (int i = 0; i < tracercords.length; i++) {
-                                g2.setColor(Color.MAGENTA);
-                                g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 1, Physics.Ypixels[tracercords[i].ycord()] + 1, 19, 19);
+                                if(tracercords[i].ycord() != Main.LiveBlocks[i].ycord()) {
+                                    g2.setColor(Main.LiveBlocks[i].getColor());
+                                    g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 1, Physics.Ypixels[tracercords[i].ycord()] + 1, 19, 19);
+                                    g2.setColor(Color.WHITE);
+                                    g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 2, Physics.Ypixels[tracercords[i].ycord()] + 3, 16, 15);
+                                }
                             }
-                       // }
                     }
 
                     File file = new File("HighScore.Txt");
@@ -224,8 +222,8 @@ public static void ChangeCheck(int x){
 //                    g2.drawString(high,690, 80);
 
                 } finally {
-                    g2.dispose();
                     bs.show();
+                    g2.dispose();
                 }
             } while (bs.contentsLost()) ;
 
@@ -237,7 +235,7 @@ public static void ChangeCheck(int x){
 
     public void main(Window window) {
 
-            addKeyListener(this.window);
+                addKeyListener(this.window);
             window.setVisible(true);
             createBufferStrategy(2);
         bs = this.getBufferStrategy();

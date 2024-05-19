@@ -476,7 +476,13 @@ public static void LineClear(){
     }
 
     public static Block[] Tracer(){
-        Block[] Tracer = Main.LiveBlocks;
+        Block[] Tracer = {new Block(), new Block(), new Block(), new Block()};
+        for(int i = 0; i < Main.LiveBlocks.length; i++){
+            Block temp = new Block();
+            temp.ychange(Main.LiveBlocks[i].ycord());
+            temp.xchange(Main.LiveBlocks[i].xcord());
+            Tracer[i] = temp;
+        }
         if (!CheckDown(Tracer)) {
             return Tracer;
         } else {
