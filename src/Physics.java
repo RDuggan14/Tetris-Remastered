@@ -49,10 +49,9 @@ public class Physics {
 
 
         public static void NewField() {
-
         for(int y = 0; y < 20;y++) {
-            Block[] Xarray = new Block[10];
-            for (int i = 0; i < 10; i++) {
+            Block[] Xarray = new Block[12];
+            for (int i = 0; i < 12; i++) {
                 Xarray[i] = new Block();
             }
             Yarray[y] = Xarray;

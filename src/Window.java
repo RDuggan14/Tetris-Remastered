@@ -164,7 +164,7 @@ public static void ChangeCheck(int x){
                 try {
                     g2 = (Graphics2D) bs.getDrawGraphics();
                     for (int y = 0; y < Physics.Yarray.length; y++) {
-                        for (int x = 0; x < Physics.Xarray.length; x++) {
+                        for (int x = 0; x < Physics.Yarray[y].length; x++) {
                             Color color = Physics.Yarray[y][x].Color;
                             g2.setColor(color);
                             g2.fillRect(Physics.Xpixels[x] + 1, Physics.Ypixels[y] + 1, 19, 19);
