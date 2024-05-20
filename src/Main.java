@@ -12,6 +12,10 @@ public class Main {
 
 
     public static Block[] LiveBlocks = {};
+    public static Block[] P1Blocks = {};
+    public static Block[] P2Blocks = {};
+    public static boolean P1Live = false;
+    public static boolean P2Live = false;
     public static boolean liveFall = false;
     public static boolean pause = true;
     public static int tick = 0;
@@ -27,8 +31,13 @@ public class Main {
     }
 
 
-    public static void SetLiveBlocks(Block[] Blocks){
-        LiveBlocks = Blocks;
+    public static void SetLiveBlocks(Block[] Blocks, int Player){
+        if(Player == 1){
+            P1Blocks = Blocks;
+        }
+        else{
+            P2Blocks = Blocks;
+        }
     }
 
     public static void Pause(){

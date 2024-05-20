@@ -328,86 +328,6 @@ public static void LineClear(){
     }
 
 
-    public static void SaveBlock() {
-            if(TSLC == 0) {
-                RotatePOS = 0;
-                TSLC = 1;
-                int NewSave = CurrentBlock;
-                CreateSavedBlock();
-                if (NewSave == 1) {
-                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][4].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                }
-                if (NewSave == 3) {
-                    SavedY[1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                }
-                if (NewSave == 4) {
-                    SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                }
-                if (NewSave == 2) {
-                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                }
-                if (NewSave == 5) {
-                    SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[1][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                }
-                if (NewSave == 6) {
-                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[1][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                }
-                if (NewSave == 7) {
-                    SavedY[2][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][2].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[2][3].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                    SavedY[1][1].UpdateBlock(true, Main.LiveBlocks[0].Color);
-                }
-
-                if (SavedID != 0) {
-
-                    if (SavedID == 1) {
-                        Main.SetLiveBlocks(Fourlong());
-                    }
-                    if (SavedID == 3) {
-                        Main.SetLiveBlocks(ZigRight());
-                    }
-                    if (SavedID == 4) {
-                        Main.SetLiveBlocks(ZigLeft());
-                    }
-                    if (SavedID == 2) {
-                        Main.SetLiveBlocks(TPeice());
-                    }
-                    if (SavedID == 5) {
-                        Main.SetLiveBlocks(Square());
-                    }
-                    if (SavedID == 6) {
-                        Main.SetLiveBlocks(LRight());
-                    }
-                    if (SavedID == 7) {
-                        Main.SetLiveBlocks(LLeft());
-                    }
-                    SavedID = NewSave;
-                } else {
-                    SavedID = CurrentBlock;
-                    NewBlocks();
-                }
-            }
-    }
-
     public static boolean CordChecker(Block[] Blocks){
             for(var i = 0; i < Blocks.length; i++){
                 if (Blocks[i].ycord() < 0 || Blocks[i].ycord() > 19){
@@ -458,6 +378,12 @@ public static void LineClear(){
 
     }
 
+    private static void BulkX(Block[] Array, int Change){
+            for(int i = 0; i < Array.length; i++){
+                Array[i].xchange(Array[i].xcord()+Change);
+            }
+    }
+
     public static void SpeedDrop(){
         if (Physics.CheckDown(Main.LiveBlocks)) {
             Physics.MoveDown(Main.LiveBlocks);
@@ -465,9 +391,9 @@ public static void LineClear(){
         }
     }
 
-    public static void NewBlocks() {
+    public static void NewBlocks(int Player) {
         TSLC = 0;
-            RotatePOS = 0;
+        RotatePOS = 0;
 
         int randomNumber = BlockQueue[0];
 
@@ -477,32 +403,68 @@ public static void LineClear(){
 
 
         if(randomNumber == 0){
-            Main.SetLiveBlocks(Fourlong());
+            Main.SetLiveBlocks(Fourlong(), Player);
+            if(Player == 1){
+                BulkX(Main.P1Blocks, 2);
+            }
+            else{
+                BulkX(Main.P2Blocks, -2);
+            }
         }
         if(randomNumber == 1){
-            Main.SetLiveBlocks(ZigRight());
+            Main.SetLiveBlocks(ZigRight(), Player);
+            if(Player == 1){
+                BulkX(Main.P1Blocks, 2);
+            }
+            else{
+                BulkX(Main.P2Blocks, -2);
+            }
         }
         if(randomNumber == 2){
-            Main.SetLiveBlocks(ZigLeft());
+            Main.SetLiveBlocks(ZigLeft(), Player);
+            if(Player == 1){
+                BulkX(Main.P1Blocks, 2);
+            }
+            else{
+                BulkX(Main.P2Blocks, -2);
+            }
         }
         if(randomNumber == 3){
-            Main.SetLiveBlocks(TPeice());
+            Main.SetLiveBlocks(TPeice(), Player);
+            if(Player == 1){
+                BulkX(Main.P1Blocks, 2);
+            }
+            else{
+                BulkX(Main.P2Blocks, -2);
+            }
         }
         if(randomNumber == 4){
-            Main.SetLiveBlocks(Square());
+            Main.SetLiveBlocks(Square(), Player);
+            if(Player == 1){
+                BulkX(Main.P1Blocks, 2);
+            }
+            else{
+                BulkX(Main.P2Blocks, -2);
+            }
         }
         if(randomNumber == 5){
-            Main.SetLiveBlocks(LRight());
+            Main.SetLiveBlocks(LRight(), Player);
+            if(Player == 1){
+                BulkX(Main.P1Blocks, 2);
+            }
+            else{
+                BulkX(Main.P2Blocks, -2);
+            }
         }
         if(randomNumber == 6){
-            Main.SetLiveBlocks(LLeft());
+            Main.SetLiveBlocks(LLeft(), Player);
+            if(Player == 1){
+                BulkX(Main.P1Blocks, 2);
+            }
+            else{
+                BulkX(Main.P2Blocks, -2);
+            }
         }
-
-
-
-        //Random random = new Random();
-        //int rand = random.nextInt(7);
-        //Main.SetLiveBlocks(LRight());
 
     }
 
@@ -529,10 +491,10 @@ public static void LineClear(){
 
 
 
-    public static void HardDrop() {
+    public static void HardDrop(int Player) {
         Block[] TempChords = Main.LiveBlocks;
         if (!CheckDown(TempChords)) {
-            Window.BlockDropUpdater();
+            Window.BlockDropUpdater(Player);
 
         } else {
             int totalDrop = 0;
@@ -543,7 +505,7 @@ public static void LineClear(){
                 totalDrop++;
             }
             Main.LiveBlocks = TempChords;
-            Window.BlockDropUpdater();
+            Window.BlockDropUpdater(Player);
             Window.ChangeScore(5 * totalDrop * Window.Level);
         }
     }
@@ -668,9 +630,16 @@ public static void LineClear(){
         return(true);
     }
 
-    public static void SetBlocks(){
-        for(int i = 0; i < Main.LiveBlocks.length; i++){
-            Yarray[Main.LiveBlocks[i].ycord()][ Main.LiveBlocks[i].xcord()] = Main.LiveBlocks[i];
+    public static void SetBlocks(int Player){
+            if(Player == 1){
+                for(int i = 0; i < Main.P1Blocks.length; i++){
+                    Yarray[Main.P1Blocks[i].ycord()][ Main.P1Blocks[i].xcord()] = Main.P1Blocks[i];
+                }
+            }
+        if(Player == 2){
+            for(int i = 0; i < Main.P2Blocks.length; i++){
+                Yarray[Main.P2Blocks[i].ycord()][ Main.P2Blocks[i].xcord()] = Main.P2Blocks[i];
+            }
         }
     }
 

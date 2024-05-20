@@ -16,6 +16,8 @@ public class Window extends JFrame implements KeyListener {
     private static Graphics g;
     private int TickUpdate = 10;
     public static int lastCheck;
+    public static int P1Checklast;
+    public static int P2Checklast;
     private boolean stopall = false;
     private static int Score = 0;
     public static int Level = 1;
@@ -52,10 +54,6 @@ public class Window extends JFrame implements KeyListener {
         // Your keyReleased method implementation
     }
 
-public static void ChangeCheck(int x){
-        lastCheck = x;
-}
-
     private void moveDot(KeyEvent e) {
 
         int keyCode = e.getKeyCode();
@@ -73,13 +71,12 @@ public static void ChangeCheck(int x){
                 MoveR();
                 break;
             case KeyEvent.VK_SPACE:
-                Physics.HardDrop();
+                Physics.HardDrop(1);
                 break;
             case KeyEvent.VK_ESCAPE:
                 Main.Pause();
                 break;
             case KeyEvent.VK_Z:
-                Physics.SaveBlock();
                 break;
             case KeyEvent.VK_L:
                 if(tracer){
@@ -192,9 +189,13 @@ public static void ChangeCheck(int x){
                         }
                     }
 
-                    for (int i = 0; i < Main.LiveBlocks.length; i++) {
-                        g2.setColor(Main.LiveBlocks[i].getColor());
-                        g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
+                    for (int i = 0; i < Main.P1Blocks.length; i++) {
+                        g2.setColor(Main.P1Blocks[i].getColor());
+                        g2.fillRect(Physics.Xpixels[(Main.P1Blocks[i].xcord())] + 1, Physics.Ypixels[Main.P1Blocks[i].ycord()] + 1, 19, 19);
+                    }
+                    for (int i = 0; i < Main.P2Blocks.length; i++) {
+                        g2.setColor(Main.P2Blocks[i].getColor());
+                        g2.fillRect(Physics.Xpixels[(Main.P2Blocks[i].xcord())] + 1, Physics.Ypixels[Main.P2Blocks[i].ycord()] + 1, 19, 19);
                     }
 
 
@@ -252,12 +253,19 @@ public static void ChangeCheck(int x){
     }
 
 
-    public static void BlockDropUpdater(){
-        lastCheck = 0;
-        Main.liveFall = false;
-        Physics.SetBlocks();
-        Physics.LineClear();
-        Physics.UpdateQueue();
+    public static void BlockDropUpdater(int Player){
+        if(Player == 1) {
+            Main.liveFall = false;
+            Physics.SetBlocks(1);
+            Physics.LineClear();
+            Physics.UpdateQueue();
+        }
+        if(Player == 2) {
+            Main.liveFall = false;
+            Physics.SetBlocks(2);
+            Physics.LineClear();
+            Physics.UpdateQueue();
+        }
     }
 
     public static void ChangeAnimation(boolean change){
@@ -283,11 +291,16 @@ public static void ChangeCheck(int x){
 
 
 
-                    if (!Main.liveFall) {
-                        Physics.NewBlocks();
+                    if (!Main.P1Live) {
+                        Physics.NewBlocks(1);
                         Physics.UpdateQueue();
-                        Main.liveFall = true;
+                        Main.P1Live = true;
                     }
+                      if (!Main.P2Live) {
+                    Physics.NewBlocks(2);
+                    Physics.UpdateQueue();
+                    Main.P2Live = true;
+                       }
 
 
                     if ((Main.tick & 5) == 0) {
@@ -300,15 +313,30 @@ public static void ChangeCheck(int x){
                     if (Main.tick % 40 == 0) {
                         if (!animation) {
 
-                            if (Physics.CheckDown(Main.LiveBlocks)) {
-                                Physics.MoveDown(Main.LiveBlocks);
+                            if (Physics.CheckDown(Main.P1Blocks)) {
+                                Physics.MoveDown(Main.P1Blocks);
 
 
                             } else {
-                                if (lastCheck > 2) {
-                                    BlockDropUpdater();
+                                if (P1Checklast > 2) {
+                                    BlockDropUpdater(1);
+                                    P1Checklast = 0;
                                 } else {
-                                    lastCheck++;
+                                    P1Checklast++;
+                                }
+
+                            }
+
+                            if (Physics.CheckDown(Main.P2Blocks)) {
+                                Physics.MoveDown(Main.P2Blocks);
+
+
+                            } else {
+                                if (P2Checklast > 2) {
+                                    BlockDropUpdater(2);
+                                    P2Checklast = 0;
+                                } else {
+                                    P2Checklast++;
                                 }
 
                             }
