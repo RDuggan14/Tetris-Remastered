@@ -200,6 +200,8 @@ public static void LineClear(){
             int[] ClearLines = {99,99,99,99};
             int LineClears = 0;
             int totalLines = 0;
+            Block[][] HoldingVal = new Block[4][10];
+    Block[] WhiteArray  = {new Block(),new Block(),new Block(), new Block(),new Block(),new Block(), new Block(),new Block(),new Block(),new Block()};
 
             for(int i = 0; i < Yarray.length;i++){
                 int LineOccu = 0;
@@ -216,29 +218,59 @@ public static void LineClear(){
                      LineClears++;
                  }
             }
+    for(int i = 0; i < ClearLines.length; i++){
+        if(ClearLines[i] != 99) {
+            Window.ChangeAnimation(true);
+        HoldingVal[i] = Yarray[ClearLines[i]];
+        Yarray[i] = WhiteArray;
+        }
+    }
+    if(Window.animation) {
+        int x = Main.tick;
+        int z = x + 25;
+        while (x < z) {
+            System.out.println(x);
+            System.out.println(z);
+            x = Main.tick;
+            if (x % 5 == 0) {
+                for(int i = 0; i < ClearLines.length; i++){
+                    if(ClearLines[i] != 99){
+                        Yarray[ClearLines[i]] = WhiteArray;
+                    }
+                }
+            }
+            if (x % 10 == 0) {
+                for(int i = 0; i < ClearLines.length; i++){
+                    if(ClearLines[i] != 99){
+                        Yarray[ClearLines[i]] = HoldingVal[i];
+                    }
+                }
+            }
+            Window.update();
+        }
+        for(int i = 0; i < ClearLines.length; i++){
+            if(ClearLines[i] != 99){
+                Yarray[ClearLines[i]] = HoldingVal[i];
+            }
+        }
+    }
             for(int i = 0; i < ClearLines.length; i++){
+                Block[] tempx = {new Block(),new Block(),new Block(), new Block(),new Block(),new Block(), new Block(),new Block(),new Block(),new Block()};
+                for (int z = 0; z < 10; z++) {
+                    tempx[z] = new Block();
+                }
+                Yarray[0] = tempx;
+                System.out.println("NEW LINE " + Arrays.toString(Yarray));
                 if(ClearLines[i] != 99){
                     totalLines++;
                     for(int y = 0; y < ClearLines[i];y++){
-                        int x = ClearLines[i] - y;
-                        System.out.println(x);
-                        System.out.println(y);
-                        if(x == 1){
-                            Yarray[x] = Yarray[(x - 1)];
-                            Block[] tempx = {new Block(),new Block(),new Block(), new Block(),new Block(),new Block(), new Block(),new Block(),new Block(),new Block()};
-                            for (int z = 0; z < 10; z++) {
-                                tempx[z] = new Block();
-                            }
-                            Yarray[0] = tempx;
-                            System.out.println(Arrays.toString(tempx));
-                        }
-                        else{
-                            Yarray[x] = Yarray[(x - 1)];
-                        }
+                        int r = ClearLines[i] - y;
+                            Yarray[r] = Yarray[(r-1)];
                     }
 
                 }
                 Window.ChangeScore(100 * totalLines * Window.Level);
+                Window.ChangeAnimation(false);
             }
 }
 
@@ -640,8 +672,6 @@ public static void LineClear(){
     public static void SetBlocks(){
         for(int i = 0; i < Main.LiveBlocks.length; i++){
             Yarray[Main.LiveBlocks[i].ycord()][ Main.LiveBlocks[i].xcord()] = Main.LiveBlocks[i];
-           //Block Block = Yarray[Main.LiveBlocks[i].ycord()][Main.LiveBlocks[i].xcord()];
-            //Block.UpdateBlock(true, Main.LiveBlocks[i].Color);
         }
     }
 

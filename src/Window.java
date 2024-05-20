@@ -13,11 +13,13 @@ public class Window extends JFrame implements KeyListener {
     private BufferStrategy bs;
     public Graphics gt;
     public static Window window;
+    private static Graphics g;
     private int TickUpdate = 10;
     public static int lastCheck;
     private boolean stopall = false;
     private static int Score = 0;
     public static int Level = 1;
+    public static boolean animation = false;
     private static boolean tracer = false;
     public Window() {
         setTitle("Tetris Remastered");
@@ -258,10 +260,17 @@ public static void ChangeCheck(int x){
         Physics.UpdateQueue();
     }
 
+    public static void ChangeAnimation(boolean change){
+        animation = change;
+    }
 
+    public static void update(){
+        window.paint(g);
+    }
 
     public void GameStart() throws InterruptedException {
         gt = getGraphics();
+        g = gt;
         GridMaker();
         GridDraw();
 
@@ -272,37 +281,41 @@ public static void ChangeCheck(int x){
 
             if (!Main.pause) {
 
-                if (!Main.liveFall) {
-                    Physics.NewBlocks();
-                    Physics.UpdateQueue();
-                    Main.liveFall = true;
-                }
 
 
-                if ((Main.tick & 5) == 0) {
-                    paint(gt);
-                    //Physics.GridChecker();
-                    Physics.SavedChecker();
-                    System.out.println("Break");
-                }
-
-
-                if (Main.tick % 40 == 0) {
-
-                    if (Physics.CheckDown(Main.LiveBlocks)) {
-                        Physics.MoveDown(Main.LiveBlocks);
-
-
-                    } else {
-                        if (lastCheck > 2) {
-                            BlockDropUpdater();
-                        } else {
-                            lastCheck++;
-                        }
-
+                    if (!Main.liveFall) {
+                        Physics.NewBlocks();
+                        Physics.UpdateQueue();
+                        Main.liveFall = true;
                     }
 
-                }
+
+                    if ((Main.tick & 5) == 0) {
+                        paint(gt);
+                        Physics.GridChecker();
+                        System.out.println("Break");
+                    }
+
+
+                    if (Main.tick % 40 == 0) {
+                        if (!animation) {
+
+                            if (Physics.CheckDown(Main.LiveBlocks)) {
+                                Physics.MoveDown(Main.LiveBlocks);
+
+
+                            } else {
+                                if (lastCheck > 2) {
+                                    BlockDropUpdater();
+                                } else {
+                                    lastCheck++;
+                                }
+
+                            }
+
+                        }
+                    }
+
             }
             else{
                 pauseMenu();
