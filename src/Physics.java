@@ -11,7 +11,11 @@ public class Physics {
     public static Block[] Xarray = {new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block()};
     public static Block[][] Yarray = new Block[20][];
     private static int CurrentBlock;
+    private static int P1CurrentBlock;
+    private static int P2CurrentBlock;
     private  static int RotatePOS;
+    private static int P1rotate;
+    private static int P2rotate;
     public static int TSLC = 0;
     public static int SavedID;
     public static Block[][] SavedY = new Block[5][];
@@ -60,134 +64,240 @@ public class Physics {
 
     }
 
-    public static void rotate(){
+    public static void rotate(int Player){
             Block[] NewCords = {new Block(), new Block(), new Block(), new Block()};
             Block Updated;
-            if(CurrentBlock == 1){
-                if(RotatePOS == 0) {
-                    Block[] Pattern = {new Block(0,1), new Block(0,2), new Block(0,3), new Block(0,4)};
-                    rotationPattern(Pattern);
-                    RotatePOS++;
+            if(Player == 2){
+                if (P2CurrentBlock == 1) {
+
+                    if (P2rotate == 0) {
+                        Block[] Pattern = {new Block(0, 1), new Block(0, 2), new Block(0, 3), new Block(0, 4)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 1) {
+                        Block[] Pattern = {new Block(0, 0), new Block(1, 0), new Block(2, 0), new Block(3, 0)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate = 0;
+
+                    }
+                }
+                if (P2CurrentBlock == 2) {
+                    if (P2rotate == 0) {
+                        Block[] Pattern = {new Block(0, 1), new Block(0, -1), new Block(0, 0), new Block(1, 0)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 1) {
+                        Block[] Pattern = {new Block(1, 0), new Block(-1, 0), new Block(0, 0), new Block(0, 1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 2) {
+                        Block[] Pattern = {new Block(0, 1), new Block(0, -1), new Block(0, 0), new Block(-1, 0)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 3) {
+                        Block[] Pattern = {new Block(1, 0), new Block(-1, 0), new Block(0, 0), new Block(0, -1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate = 0;
+
+                    }
 
                 }
-                else if(RotatePOS == 1) {
-                    Block[] Pattern = {new Block(0,0), new Block(1,0), new Block(2,0), new Block(3,0)};
-                    rotationPattern(Pattern);
-                    RotatePOS = 0;
+                if (P2CurrentBlock == 3) {
+                    if (P2rotate == 0) {
+                        Block[] Pattern = {new Block(0, 0), new Block(1, 1), new Block(1, 0), new Block(0, -1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 1) {
+                        Block[] Pattern = {new Block(1, -1), new Block(0, -1), new Block(0, 0), new Block(-1, 0)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate = 0;
+
+                    }
+
+                }
+                if (P2CurrentBlock == 4) {
+                    if (P2rotate == 0) {
+                        Block[] Pattern = {new Block(0, 0), new Block(-1, 1), new Block(-1, 0), new Block(0, -1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 1) {
+                        Block[] Pattern = {new Block(0, 0), new Block(-1, 0), new Block(0, 1), new Block(1, 1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate = 0;
+
+                    }
+
+                }
+                if (P2CurrentBlock == 6) {
+                    if (P2rotate == 0) {
+                        Block[] Pattern = {new Block(0, 0), new Block(0, 1), new Block(0, -1), new Block(1, 1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 1) {
+                        Block[] Pattern = {new Block(0, 0), new Block(1, 0), new Block(-1, 0), new Block(-1, 1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 2) {
+                        Block[] Pattern = {new Block(0, 0), new Block(0, 1), new Block(0, -1), new Block(-1, -1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 3) {
+                        Block[] Pattern = {new Block(0, 0), new Block(1, 0), new Block(-1, 0), new Block(1, -1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate = 0;
+
+                    }
+
+                }
+                if (P2CurrentBlock == 7) {
+                    if (P2rotate == 0) {
+                        Block[] Pattern = {new Block(0, 0), new Block(0, 1), new Block(0, -1), new Block(1, -1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 1) {
+                        Block[] Pattern = {new Block(0, 0), new Block(-1, 0), new Block(1, 0), new Block(1, 1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 2) {
+                        Block[] Pattern = {new Block(0, 0), new Block(0, 1), new Block(0, -1), new Block(-1, 1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate++;
+
+                    } else if (P2rotate == 3) {
+                        Block[] Pattern = {new Block(0, 0), new Block(-1, 0), new Block(1, 0), new Block(-1, -1)};
+                        rotationPattern(Pattern, 2, Main.P1Blocks);
+                        P2rotate = 0;
+
+                    }
 
                 }
             }
-        if(CurrentBlock == 2){
-            if(RotatePOS == 0) {
-                Block[] Pattern = {new Block(0,1), new Block(0,-1), new Block(0,0), new Block(1,0)};
-                rotationPattern(Pattern);
-                RotatePOS++;
+            if(Player == 1) {
+                if (P1CurrentBlock == 1) {
+                    if (P1rotate == 0) {
+                        Block[] Pattern = {new Block(0, 1), new Block(0, 2), new Block(0, 3), new Block(0, 4)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
 
+                    } else if (RotatePOS == 1) {
+                        Block[] Pattern = {new Block(0, 0), new Block(1, 0), new Block(2, 0), new Block(3, 0)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate = 0;
+
+                    }
+                }
+                if (P1CurrentBlock == 2) {
+                    if (P1rotate == 0) {
+                        Block[] Pattern = {new Block(0, 1), new Block(0, -1), new Block(0, 0), new Block(1, 0)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 1) {
+                        Block[] Pattern = {new Block(1, 0), new Block(-1, 0), new Block(0, 0), new Block(0, 1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 2) {
+                        Block[] Pattern = {new Block(0, 1), new Block(0, -1), new Block(0, 0), new Block(-1, 0)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 3) {
+                        Block[] Pattern = {new Block(1, 0), new Block(-1, 0), new Block(0, 0), new Block(0, -1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate = 0;
+
+                    }
+
+                }
+                if (P1CurrentBlock == 3) {
+                    if (P1rotate == 0) {
+                        Block[] Pattern = {new Block(0, 0), new Block(1, 1), new Block(1, 0), new Block(0, -1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 1) {
+                        Block[] Pattern = {new Block(1, -1), new Block(0, -1), new Block(0, 0), new Block(-1, 0)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate = 0;
+
+                    }
+
+                }
+                if (P1CurrentBlock == 4) {
+                    if (P1rotate == 0) {
+                        Block[] Pattern = {new Block(0, 0), new Block(-1, 1), new Block(-1, 0), new Block(0, -1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 1) {
+                        Block[] Pattern = {new Block(0, 0), new Block(-1, 0), new Block(0, 1), new Block(1, 1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate = 0;
+
+                    }
+
+                }
+                if (P1CurrentBlock == 6) {
+                    if (P1rotate == 0) {
+                        Block[] Pattern = {new Block(0, 0), new Block(0, 1), new Block(0, -1), new Block(1, 1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 1) {
+                        Block[] Pattern = {new Block(0, 0), new Block(1, 0), new Block(-1, 0), new Block(-1, 1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 2) {
+                        Block[] Pattern = {new Block(0, 0), new Block(0, 1), new Block(0, -1), new Block(-1, -1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 3) {
+                        Block[] Pattern = {new Block(0, 0), new Block(1, 0), new Block(-1, 0), new Block(1, -1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate = 0;
+
+                    }
+
+                }
+                if (P1CurrentBlock == 7) {
+                    if (P1rotate == 0) {
+                        Block[] Pattern = {new Block(0, 0), new Block(0, 1), new Block(0, -1), new Block(1, -1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 1) {
+                        Block[] Pattern = {new Block(0, 0), new Block(-1, 0), new Block(1, 0), new Block(1, 1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 2) {
+                        Block[] Pattern = {new Block(0, 0), new Block(0, 1), new Block(0, -1), new Block(-1, 1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate++;
+
+                    } else if (P1rotate == 3) {
+                        Block[] Pattern = {new Block(0, 0), new Block(-1, 0), new Block(1, 0), new Block(-1, -1)};
+                        rotationPattern(Pattern, 1, Main.P1Blocks);
+                        P1rotate = 0;
+
+                    }
+
+                }
             }
-            else if(RotatePOS == 1) {
-                Block[] Pattern = {new Block(1,0), new Block(-1,0), new Block(0,0), new Block(0,1)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 2) {
-                Block[] Pattern = {new Block(0,1), new Block(0,-1), new Block(0,0), new Block(-1,0)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 3) {
-                Block[] Pattern = {new Block(1,0), new Block(-1,0), new Block(0,0), new Block(0,-1)};
-                rotationPattern(Pattern);
-                RotatePOS = 0;
-
-            }
-
-        }
-        if(CurrentBlock == 3){
-            if(RotatePOS == 0) {
-                Block[] Pattern = {new Block(0,0), new Block(1,1), new Block(1,0), new Block(0,-1)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 1) {
-                Block[] Pattern = {new Block(1,-1), new Block(0,-1), new Block(0,0), new Block(-1,0)};
-                rotationPattern(Pattern);
-                RotatePOS = 0;
-
-            }
-
-        }
-        if(CurrentBlock == 4){
-            if(RotatePOS == 0) {
-                Block[] Pattern = {new Block(0,0), new Block(-1,1), new Block(-1,0), new Block(0,-1)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 1) {
-                Block[] Pattern = {new Block(0,0), new Block(-1,0), new Block(0,1), new Block(1,1)};
-                rotationPattern(Pattern);
-                RotatePOS = 0;
-
-            }
-
-        }
-        if(CurrentBlock == 6){
-            if(RotatePOS == 0) {
-                Block[] Pattern = {new Block(0,0), new Block(0,1), new Block(0,-1), new Block(1,1)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 1) {
-                Block[] Pattern = {new Block(0,0), new Block(1,0), new Block(-1,0), new Block(-1,1)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 2) {
-                Block[] Pattern = {new Block(0,0), new Block(0,1), new Block(0,-1), new Block(-1,-1)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 3) {
-                Block[] Pattern = {new Block(0,0), new Block(1,0), new Block(-1,0), new Block(1,-1)};
-                rotationPattern(Pattern);
-                RotatePOS = 0;
-
-            }
-
-        }
-        if(CurrentBlock == 7){
-            if(RotatePOS == 0) {
-                Block[] Pattern = {new Block(0,0), new Block(0,1), new Block(0,-1), new Block(1,-1)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 1) {
-                Block[] Pattern = {new Block(0,0), new Block(-1,0), new Block(1,0), new Block(1,1)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 2) {
-                Block[] Pattern = {new Block(0,0), new Block(0,1), new Block(0,-1), new Block(-1,1)};
-                rotationPattern(Pattern);
-                RotatePOS++;
-
-            }
-            else if(RotatePOS == 3) {
-                Block[] Pattern = {new Block(0,0), new Block(-1,0), new Block(1,0), new Block(-1,-1)};
-                rotationPattern(Pattern);
-                RotatePOS = 0;
-
-            }
-
-        }
     }
 
         public static int generateRandomNumber() {
@@ -344,19 +454,26 @@ public static void LineClear(){
     }
 
 
-    public static void rotationPattern(Block[] BlockPattern){
+    public static void rotationPattern(Block[] BlockPattern, int Player, Block[] Blocks){
+
+
             for(var i = 0; i < 4; i++){
                 Block[] CheckerList = {new Block(),new Block(),new Block(),new Block(),};
                 for(var x = 0; x < 4; x++){
                     int xdift = BlockPattern[x].xcord();
                     int ydift = BlockPattern[x].ycord();
 
-                    CheckerList[x] = new Block(Main.LiveBlocks[i].xcord()+xdift, Main.LiveBlocks[i].ycord()+ydift, Main.LiveBlocks[x].getColor());
+                    CheckerList[x] = new Block(Blocks[i].xcord()+xdift, Blocks[i].ycord()+ydift, Blocks[x].getColor());
                     System.out.println("CORDS " + CheckerList[x].xcord() + " " + CheckerList[x].ycord());
                 }
 
                 if(CordChecker(CheckerList)){
-                    Main.LiveBlocks = CheckerList;
+                    if(Player == 1){
+                        Main.P1Blocks = CheckerList;
+                    }
+                    if(Player == 2){
+                        Main.P2Blocks = CheckerList;
+                    }
                     return;
                 }
             }
@@ -366,12 +483,17 @@ public static void LineClear(){
                 int xdift = -BlockPattern[x].xcord();
                 int ydift = -BlockPattern[x].ycord();
 
-                CheckerList[x] = new Block(Main.LiveBlocks[i].xcord()+xdift, Main.LiveBlocks[i].ycord()+ydift, Main.LiveBlocks[x].getColor());
+                CheckerList[x] = new Block(Blocks[i].xcord()+xdift, Blocks[i].ycord()+ydift, Blocks[x].getColor());
                 System.out.println("CORDS " + CheckerList[x].xcord() + " " + CheckerList[x].ycord());
             }
 
             if(CordChecker(CheckerList)){
-                Main.LiveBlocks = CheckerList;
+                if(Player == 1){
+                    Main.P1Blocks = CheckerList;
+                }
+                if(Player == 2){
+                    Main.P2Blocks = CheckerList;
+                }
                 return;
             }
         }
@@ -384,16 +506,27 @@ public static void LineClear(){
             }
     }
 
-    public static void SpeedDrop(){
-        if (Physics.CheckDown(Main.LiveBlocks)) {
-            Physics.MoveDown(Main.LiveBlocks);
-            Window.ChangeScore((Window.Level * 2));
+    public static void SpeedDrop(int Player){
+        if(Player == 1) {
+            if (Physics.CheckDown(Main.P1Blocks)) {
+                Physics.MoveDown(Main.P1Blocks);
+
+            }
         }
+            if(Player == 2) {
+                if (Physics.CheckDown(Main.P2Blocks)) {
+                    Physics.MoveDown(Main.P2Blocks);
+                }
+            }
     }
 
     public static void NewBlocks(int Player) {
-        TSLC = 0;
-        RotatePOS = 0;
+            if(Player == 1){
+                P1rotate = 0;
+            }
+            else{
+                P2rotate = 0;
+            }
 
         int randomNumber = BlockQueue[0];
 
@@ -465,7 +598,12 @@ public static void LineClear(){
                 BulkX(Main.P2Blocks, -2);
             }
         }
-
+    if(Player == 1){
+    P1CurrentBlock = CurrentBlock;
+    }
+        if(Player == 2){
+            P2CurrentBlock = CurrentBlock;
+        }
     }
 
     public static Block[] Tracer(){
@@ -492,7 +630,13 @@ public static void LineClear(){
 
 
     public static void HardDrop(int Player) {
-        Block[] TempChords = Main.LiveBlocks;
+        Block[] TempChords = Main.P1Blocks;
+            if(Player == 1){
+                 TempChords = Main.P1Blocks;
+            }
+            else{
+                 TempChords = Main.P2Blocks;
+            }
         if (!CheckDown(TempChords)) {
             Window.BlockDropUpdater(Player);
 
@@ -504,7 +648,12 @@ public static void LineClear(){
                 }
                 totalDrop++;
             }
-            Main.LiveBlocks = TempChords;
+            if(Player == 1){
+                Main.P1Blocks = TempChords;
+            }
+            else{
+                Main.P2Blocks = TempChords;
+            }
             Window.BlockDropUpdater(Player);
             Window.ChangeScore(5 * totalDrop * Window.Level);
         }
@@ -571,14 +720,10 @@ public static void LineClear(){
     }
 
 
-    //public static boolean ChangeLimit(){
-     //       if(TSLC < tick)
-    //}
-
     public static boolean CheckRight(Block[] Blocks){
         for(int i = 0; i < Blocks.length; i++){
             Block current = Blocks[i];
-            if(current.xcord()+1 < 0){
+            if(current.xcord() > Yarray[0].length){
                 return(false);
             }
             if(GetBlock(current.xcord()+1, current.ycord()).Occupied){
@@ -588,10 +733,20 @@ public static void LineClear(){
        return(true);
     }
 
-    public static boolean CheckLeft(Block[] Blocks){
-        for(int i = 0; i < Blocks.length; i++){
+    public static boolean CheckLeft(int Player){
+            System.out.println("CHECK LEFT");
+        Block[] Blocks = Main.P1Blocks;
+            if(Player == 1){
+                Blocks = Main.P1Blocks;
+            }
+        if(Player == 2){
+           Blocks = Main.P2Blocks;
+        }
+
+        for(int i = 0; i < 4; i++){
             Block current = Blocks[i];
-            if(current.xcord()-1 < 0){
+            System.out.println((current.xcord() + "AHHHHHH"));
+            if(current.xcord() < 1){
                 return(false);
             }
             if(GetBlock(current.xcord()-1, current.ycord()).Occupied){
@@ -601,15 +756,30 @@ public static void LineClear(){
         return(true);
     }
 
-    public static void MoveRight(Block[] LiveBlocks){
-        for(int i = 0; i < LiveBlocks.length; i++) {
-            Main.LiveBlocks[i].xchange(LiveBlocks[i].xcord()+1);
+    public static void MoveRight(int Player){
+            if(Player == 1){
+                for(int i = 0; i < Main.P1Blocks.length; i++) {
+                    Main.P1Blocks[i].xchange(Main.P1Blocks[i].xcord()+1);
+                }
+            }
+        if(Player == 2){
+            for(int i = 0; i < Main.P2Blocks.length; i++) {
+                Main.P2Blocks[i].xchange(Main.P2Blocks[i].xcord()+1);
+            }
         }
+
     }
 
-    public static void MoveLeft(Block[] LiveBlocks){
-        for(int i = 0; i < LiveBlocks.length; i++) {
-            Main.LiveBlocks[i].xchange(LiveBlocks[i].xcord()-1);
+    public static void MoveLeft(int Player){
+        if(Player == 1){
+            for(int i = 0; i < Main.P1Blocks.length; i++) {
+                Main.P1Blocks[i].xchange(Main.P1Blocks[i].xcord()-1);
+            }
+        }
+        if(Player == 2){
+            for(int i = 0; i < Main.P2Blocks.length; i++) {
+                Main.P2Blocks[i].xchange(Main.P2Blocks[i].xcord()-1);
+            }
         }
     }
 

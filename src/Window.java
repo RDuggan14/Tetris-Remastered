@@ -58,17 +58,17 @@ public class Window extends JFrame implements KeyListener {
 
         int keyCode = e.getKeyCode();
         switch (keyCode) {
-            case KeyEvent.VK_UP:
-                Physics.rotate();
+            case KeyEvent.VK_W:
+                Physics.rotate(1);
                 break;
-            case KeyEvent.VK_DOWN:
-                Physics.SpeedDrop();
+            case KeyEvent.VK_S:
+                Physics.SpeedDrop(1);
                 break;
-            case KeyEvent.VK_LEFT:
-                MoveL();
+            case KeyEvent.VK_D:
+                MoveR(1);
                 break;
-            case KeyEvent.VK_RIGHT:
-                MoveR();
+            case KeyEvent.VK_A:
+                MoveL(1);
                 break;
             case KeyEvent.VK_SPACE:
                 Physics.HardDrop(1);
@@ -137,16 +137,21 @@ public class Window extends JFrame implements KeyListener {
         }
     }
 
-    public void MoveR() {
-        if (Physics.CheckRight(Main.LiveBlocks)) {
-            Physics.MoveRight(Main.LiveBlocks);
+    public void MoveR(int Player) {
+        if (Physics.CheckRight(Main.P1Blocks) && Player == 1) {
+            Physics.MoveRight(Player);
+        }
+        if (Physics.CheckRight(Main.P2Blocks) && Player == 2) {
+            Physics.MoveRight(Player);
         }
     }
 
-    public void MoveL(){
-        if(Physics.CheckLeft(Main.LiveBlocks)){
-            Physics.MoveLeft(Main.LiveBlocks);
-
+    public void MoveL(int Player){
+        if(Physics.CheckLeft(Player) == true && Player == 1){
+            Physics.MoveLeft(1);
+        }
+        if(Physics.CheckLeft(2) == true && Player == 2){
+            Physics.MoveLeft(Player);
         }
     }
 
@@ -255,13 +260,13 @@ public class Window extends JFrame implements KeyListener {
 
     public static void BlockDropUpdater(int Player){
         if(Player == 1) {
-            Main.liveFall = false;
+            Main.P1Live = false;
             Physics.SetBlocks(1);
             Physics.LineClear();
             Physics.UpdateQueue();
         }
         if(Player == 2) {
-            Main.liveFall = false;
+            Main.P2Live = false;
             Physics.SetBlocks(2);
             Physics.LineClear();
             Physics.UpdateQueue();
