@@ -255,12 +255,10 @@ public static void LineClear(){
         }
     }
             for(int i = 0; i < ClearLines.length; i++){
-                Block[] tempx = {new Block(),new Block(),new Block(), new Block(),new Block(),new Block(), new Block(),new Block(),new Block(),new Block()};
                 for (int z = 0; z < 10; z++) {
-                    tempx[z] = new Block();
+                    Yarray[0][z] = new Block();
                 }
-                Yarray[0] = tempx;
-                System.out.println("NEW LINE " + Arrays.toString(Yarray));
+                System.out.println("NEW LINE " + Arrays.toString(Yarray[0]));
                 if(ClearLines[i] != 99){
                     totalLines++;
                     for(int y = 0; y < ClearLines[i];y++){
@@ -270,8 +268,9 @@ public static void LineClear(){
 
                 }
                 Window.ChangeScore(100 * totalLines * Window.Level);
-                Window.ChangeAnimation(false);
+
             }
+    Window.ChangeAnimation(false);
 }
 
 
@@ -315,13 +314,13 @@ public static void LineClear(){
                     Queue[i][2][1].UpdateBlock(true, Color.CYAN);
                     Queue[i][2][2].UpdateBlock(true, Color.CYAN);
                     Queue[i][2][3].UpdateBlock(true, Color.CYAN);
-                    Queue[i][1][1].UpdateBlock(true, Color.CYAN);
+                    Queue[i][1][3].UpdateBlock(true, Color.CYAN);
                 }
                 if (number == 6) {
                     Queue[i][2][1].UpdateBlock(true, Color.BLUE);
                     Queue[i][2][2].UpdateBlock(true, Color.BLUE);
                     Queue[i][2][3].UpdateBlock(true, Color.BLUE);
-                    Queue[i][1][3].UpdateBlock(true, Color.BLUE);
+                    Queue[i][1][1].UpdateBlock(true, Color.BLUE);
                 }
 
 

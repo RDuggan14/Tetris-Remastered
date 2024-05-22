@@ -41,7 +41,6 @@ public class Window extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         moveDot(e);
         // Your keyPressed method implementation
     }
@@ -88,6 +87,7 @@ public static void ChangeCheck(int x){
                     tracer = true;
                 }
                 break;
+
         }
     }
 
@@ -105,6 +105,7 @@ public static void ChangeCheck(int x){
     public void pauseMenu(){
         JLabel Pause = new JLabel("paused",JLabel.CENTER);
         Pause.setBounds(20, 10, 20 ,20);
+
         //JLabel Keys = new JLabel("    L  --  Activate Outlines");
         add(Pause);
         setVisible(true);
@@ -163,66 +164,79 @@ public static void ChangeCheck(int x){
                 g2 = (Graphics2D) bs.getDrawGraphics();
                 try {
                     g2 = (Graphics2D) bs.getDrawGraphics();
-                    for (int y = 0; y < Physics.Yarray.length; y++) {
-                        for (int x = 0; x < Physics.Xarray.length; x++) {
-                            Color color = Physics.Yarray[y][x].Color;
-                            g2.setColor(color);
-                            g2.fillRect(Physics.Xpixels[x] + 1, Physics.Ypixels[y] + 1, 19, 19);
-                        }
-                    }
 
-                    for (int y = 0; y < Physics.SavedY.length; y++) {
-                        Block[] xarry = Physics.SavedY[y];
-                        for (int x = 0; x < xarry.length; x++) {
-
-                            g2.setColor(xarry[x].getColor());
-                            g2.fillRect(xarry[x].xcord(), xarry[x].ycord() + 40, 19, 19);
+                    if(!Main.pause) {
+                        super.paint(g2);
+                        for (int y = 0; y < Physics.Yarray.length; y++) {
+                            for (int x = 0; x < Physics.Xarray.length; x++) {
+                                Color color = Physics.Yarray[y][x].Color;
+                                g2.setColor(color);
+                                g2.fillRect(Physics.Xpixels[x] + 1, Physics.Ypixels[y] + 1, 19, 19);
+                            }
                         }
 
-                    }
+                        for (int y = 0; y < Physics.SavedY.length; y++) {
+                            Block[] xarry = Physics.SavedY[y];
+                            for (int x = 0; x < xarry.length; x++) {
 
-                    for (int y = 0; y < Physics.Queue.length; y++) {
-                        for (int z = 0; z < 5; z++) {
-                            for (int x = 0; x < 6; x++) {
-                                g2.setColor(Physics.Queue[y][z][x].getColor());
-                                g2.fillRect(Physics.Queue[y][z][x].xcord(), Physics.Queue[y][z][x].ycord() + 40, 19, 19);
-
+                                g2.setColor(xarry[x].getColor());
+                                g2.fillRect(xarry[x].xcord(), xarry[x].ycord() + 40, 19, 19);
                             }
 
                         }
-                    }
 
-                    for (int i = 0; i < Main.LiveBlocks.length; i++) {
-                        g2.setColor(Main.LiveBlocks[i].getColor());
-                        g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
-                    }
+                        for (int y = 0; y < Physics.Queue.length; y++) {
+                            for (int z = 0; z < 5; z++) {
+                                for (int x = 0; x < 6; x++) {
+                                    g2.setColor(Physics.Queue[y][z][x].getColor());
+                                    g2.fillRect(Physics.Queue[y][z][x].xcord(), Physics.Queue[y][z][x].ycord() + 40, 19, 19);
+
+                                }
+
+                            }
+                        }
+
+                        for (int i = 0; i < Main.LiveBlocks.length; i++) {
+                            g2.setColor(Main.LiveBlocks[i].getColor());
+                            g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
+                        }
 
 
-                    if(tracer){
+                        if (tracer) {
 
-                        Block[] tracercords = Physics.Tracer();
+                            Block[] tracercords = Physics.Tracer();
                             for (int i = 0; i < tracercords.length; i++) {
-                                if(tracercords[i].ycord() != Main.LiveBlocks[i].ycord()) {
+                                if (tracercords[i].ycord() != Main.LiveBlocks[i].ycord()) {
                                     g2.setColor(Main.LiveBlocks[i].getColor());
                                     g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 1, Physics.Ypixels[tracercords[i].ycord()] + 1, 19, 19);
                                     g2.setColor(Color.WHITE);
                                     g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 2, Physics.Ypixels[tracercords[i].ycord()] + 3, 16, 15);
                                 }
                             }
-                    }
+                        }
 
-                    File file = new File("HighScore.Txt");
-                    g2.setColor(Color.white);
-                    g2.fillRect(620, 10, 150, 100);
-                    g2.setFont(new Font("Arial", Font.BOLD, 14));
-                    g2.setColor(Color.BLACK);
-                    g2.drawString("Current Score", 650, 50);
-                    g2.drawString(String.valueOf(Score), 670, 70);
-                    //g2.drawString("HighScore", 690, 50);
+                        File file = new File("HighScore.Txt");
+                        g2.setColor(Color.white);
+                        g2.fillRect(620, 10, 150, 100);
+                        g2.setFont(new Font("Arial", Font.BOLD, 14));
+                        g2.setColor(Color.BLACK);
+                        g2.drawString("Current Score", 650, 50);
+                        g2.drawString(String.valueOf(Score), 670, 70);
+                        //g2.drawString("HighScore", 690, 50);
 //                    FileReader fileCode = (new FileReader(file));
 //                    String high = fileCode.toString();
 //                    g2.drawString(high,690, 80);
+                    }
+                    else{
+                        super.paint(g2);
+                        g2.setColor(Color.white);
 
+                        g2.fillRect(620, 10, 150, 100);
+                        g2.setFont(new Font("Arial", Font.BOLD, 14));
+                        g2.setColor(Color.BLACK);
+                        g2.drawString("Current Score", 650, 50);
+
+                    }
                 } finally {
                     bs.show();
                     g2.dispose();
@@ -231,9 +245,30 @@ public static void ChangeCheck(int x){
 
         }
         else{
-            pauseMenu();
+
+            do {
+                g2 = (Graphics2D) bs.getDrawGraphics();
+                try {
+                    g2 = (Graphics2D) bs.getDrawGraphics();
+
+                        g2.setColor(Color.WHITE);
+                        g2.fillRect(0, 0, 800, 600);
+                        g2.fillRect(620, 10, 150, 100);
+                        g2.setFont(new Font("Arial", Font.BOLD, 14));
+                        g2.setColor(Color.BLACK);
+                        g2.drawString("Current Score", 650, 50);
+
+
+                } finally {
+                    g2.dispose();
+                    bs.show();
+                }
+            } while (bs.contentsLost()) ;
+
         }
-    }
+
+        }
+
 
     public void main(Window window) {
 
@@ -275,12 +310,12 @@ public static void ChangeCheck(int x){
         GridDraw();
 
         while (!stopall) {
-            Main.tick++;
-            Thread.sleep(1000 / 60);
+
 
 
             if (!Main.pause) {
-
+                Main.tick++;
+                Thread.sleep(1000 / 60);
 
 
                     if (!Main.liveFall) {
@@ -318,7 +353,8 @@ public static void ChangeCheck(int x){
 
             }
             else{
-                pauseMenu();
+                repaint();
+
             }
 
 
