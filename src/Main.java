@@ -1,9 +1,3 @@
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Arrays;
-import java.util.concurrent.Delayed;
-
 import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -20,6 +14,7 @@ public class Main {
         Window window = new Window();
         window.main(window);
         addKeyListener(window);
+
     }
 
     public int getTick(){

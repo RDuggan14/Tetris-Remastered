@@ -1,11 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.awt.image.BufferStrategy;
+import java.io.File;
 
 public class Window extends JFrame implements KeyListener {
 //    private int dotX = 100;
