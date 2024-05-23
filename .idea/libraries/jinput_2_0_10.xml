@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="jinput-2.0.10" type="repository">
+    <properties maven-id="net.java.jinput:jinput:2.0.10" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/java/jinput/jinput/2.0.10/jinput-2.0.10.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/java/jinput/jinput/2.0.10/jinput-2.0.10-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/java/jinput/jinput/2.0.10/jinput-2.0.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
