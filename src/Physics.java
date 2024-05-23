@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.random.RandomGenerator;
 
 public class Physics {
 
@@ -257,15 +256,13 @@ public static void LineClear(){
             for(int i = 0; i < ClearLines.length; i++){
                 System.out.println("NEW LINE " + Arrays.toString(Yarray[0]));
                 if(ClearLines[i] != 99){
-                    for (int z = 0; z < 10; z++) {
-                        Yarray[0][z] = new Block();
-                    }
                     totalLines++;
                     for(int y = 0; y < ClearLines[i];y++){
                         int r = ClearLines[i] - y;
                         for(int z = 0; z < Yarray[i].length; z++){
                             if(!(r-1 < 0)) {
-                                Yarray[r][z] = Yarray[r - 1][z];
+                                Yarray[r][z].Color = Yarray[r - 1][z].getColor();
+                                Yarray[r][z].Occupied = Yarray[r - 1][z].Occupied;
                             }
                         }
 //                        int r = ClearLines[i] - y;

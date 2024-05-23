@@ -193,13 +193,6 @@ public static void ChangeCheck(int x){
 
                             }
                         }
-
-                        for (int i = 0; i < Main.LiveBlocks.length; i++) {
-                            g2.setColor(Main.LiveBlocks[i].getColor());
-                            g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
-                        }
-
-
                         if (tracer) {
 
                             Block[] tracercords = Physics.Tracer();
@@ -212,6 +205,13 @@ public static void ChangeCheck(int x){
                                 }
                             }
                         }
+
+                        for (int i = 0; i < Main.LiveBlocks.length; i++) {
+                            g2.setColor(Main.LiveBlocks[i].getColor());
+                            g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
+                        }
+
+
 
                         File file = new File("HighScore.Txt");
                         g2.setColor(Color.white);
@@ -227,12 +227,14 @@ public static void ChangeCheck(int x){
                     }
                     else{
                         super.paint(g2);
+                        g2.setColor(Color.lightGray);
+                        g2.fillRect(0, 0, 400, 800);
                         g2.setColor(Color.white);
-
                         g2.fillRect(620, 10, 150, 100);
                         g2.setFont(new Font("Arial", Font.BOLD, 14));
                         g2.setColor(Color.BLACK);
                         g2.drawString("Current Score", 650, 50);
+                        g2.drawString(String.valueOf(Score), 670, 70);
 
                     }
                 } finally {
@@ -248,10 +250,11 @@ public static void ChangeCheck(int x){
                 g2 = (Graphics2D) bs.getDrawGraphics();
                 try {
                     g2 = (Graphics2D) bs.getDrawGraphics();
-
-                        g2.setColor(Color.WHITE);
+                    g2.setColor(Color.white);
                         g2.fillRect(0, 0, 800, 600);
-                        g2.fillRect(620, 10, 150, 100);
+                    g2.setColor(Color.BLACK);
+                    g2.setFont(new Font("Arial", Font.BOLD, 60));
+                    g2.drawString("Tetris", 290, 120);
                         g2.setFont(new Font("Arial", Font.BOLD, 14));
                         g2.setColor(Color.BLACK);
                         g2.drawString("Current Score", 650, 50);
@@ -287,6 +290,11 @@ public static void ChangeCheck(int x){
 
     public static void BlockDropUpdater(){
         lastCheck = 0;
+        for(int i = 0; i < Main.LiveBlocks.length; i++){
+            if(Main.LiveBlocks[i].ycord() == 1){
+                Main.pause = true;
+            }
+        }
         Main.liveFall = false;
         Physics.SetBlocks();
         Physics.LineClear();
