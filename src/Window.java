@@ -228,15 +228,12 @@ private void GridAlign(Graphics g2){
                 g2.drawString(FileHandler.readSpecificLine(FilePath, i+2), 650, 325 + i*20);
             }
         }
-
-//        g2.drawString("Name1", 460, 325);
-//        g2.drawString("0", 700, 325);
-//        g2.drawString("Name1223232", 460, 360);
-//        g2.drawString("Tod3", 460, 395);
-//        g2.drawString("BoooPraa4", 460, 425);
-//        g2.drawString("Christapher5", 460, 460);
     }
 
+
+    private void DrawLinesAndScore(Graphics g2){
+
+    }
 
 
     @Override
@@ -254,7 +251,7 @@ private void GridAlign(Graphics g2){
                             for (int x = 0; x < Physics.Xarray.length; x++) {
                                 Color color = Physics.Yarray[y][x].Color;
                                 g2.setColor(color);
-                                g2.fillRect(Physics.Xpixels[x] + 1, Physics.Ypixels[y] + 1, 19, 19);
+                                g2.fillRect(Physics.Xpixels[x] +1, Physics.Ypixels[y] + 1, 44, 44);
                             }
                         }
 
@@ -263,7 +260,7 @@ private void GridAlign(Graphics g2){
                             for (int x = 0; x < xarry.length; x++) {
 
                                 g2.setColor(xarry[x].getColor());
-                                g2.fillRect(xarry[x].xcord(), xarry[x].ycord() + 40, 19, 19);
+                                g2.fillRect(xarry[x].xcord(), xarry[x].ycord() + 40, 44, 44);
                             }
 
                         }
@@ -272,7 +269,7 @@ private void GridAlign(Graphics g2){
                             for (int z = 0; z < 5; z++) {
                                 for (int x = 0; x < 6; x++) {
                                     g2.setColor(Physics.Queue[y][z][x].getColor());
-                                    g2.fillRect(Physics.Queue[y][z][x].xcord(), Physics.Queue[y][z][x].ycord() + 40, 19, 19);
+                                    g2.fillRect(Physics.Queue[y][z][x].xcord(), Physics.Queue[y][z][x].ycord() + 40, 44, 44);
 
                                 }
 
@@ -284,16 +281,16 @@ private void GridAlign(Graphics g2){
                             for (int i = 0; i < tracercords.length; i++) {
                                 if (tracercords[i].ycord() != Main.LiveBlocks[i].ycord()) {
                                     g2.setColor(Main.LiveBlocks[i].getColor());
-                                    g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 1, Physics.Ypixels[tracercords[i].ycord()] + 1, 19, 19);
+                                    g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 1, Physics.Ypixels[tracercords[i].ycord()] + 1, 44, 44);
                                     g2.setColor(Color.WHITE);
-                                    g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 2, Physics.Ypixels[tracercords[i].ycord()] + 3, 16, 15);
+                                    g2.fillRect(Physics.Xpixels[(tracercords[i].xcord())] + 2, Physics.Ypixels[tracercords[i].ycord()] + 3, 41, 39);
                                 }
                             }
                         }
 
                         for (int i = 0; i < Main.LiveBlocks.length; i++) {
                             g2.setColor(Main.LiveBlocks[i].getColor());
-                            g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 19, 19);
+                            g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 44, 44);
                         }
 
 
@@ -336,6 +333,7 @@ private void GridAlign(Graphics g2){
                 try {
                     g2 = (Graphics2D) bs.getDrawGraphics();
                     g2.setColor(Color.white);
+                    g2.fillRect(0, 0, 1200, 1000);
                     if(!gameover){
                         g2.fillRect(0, 0, 1200, 1000);
                         g2.setColor(Color.BLACK);
@@ -393,7 +391,7 @@ private void GridAlign(Graphics g2){
     public static void BlockDropUpdater(){
         lastCheck = 0;
         for(int i = 0; i < Main.LiveBlocks.length; i++){
-            if(Main.LiveBlocks[i].ycord() == 2){
+            if(Main.LiveBlocks[i].ycord() == 1){
                 Main.pause = true;
                 gameover = true;
             }

@@ -5,8 +5,8 @@ import java.util.Random;
 public class Physics {
 
 
-    public static int[] Xpixels = {200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 420};
-    public static int[] Ypixels = {0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400};
+    public static int[] Xpixels = {350, 395, 440, 485, 530, 575, 620, 665, 710, 755, 800, 845};
+    public static int[] Ypixels = {0, 45, 90, 135, 180, 225, 270, 315, 360, 405, 450, 495, 540, 585, 630, 675, 720, 765, 810, 855, 900};
     public static Block[] Xarray = {new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block(), new Block()};
     public static Block[][] Yarray = new Block[20][];
     private static int CurrentBlock;
@@ -30,7 +30,7 @@ public class Physics {
         public static void CreateSavedBlock(){
             for(int i = 0; i < 5; i++){
                 Color color = Color.WHITE;
-                Block[] xarray = {new Block(20, 20*i, color),new Block(40, 20*i,color),new Block(60, 20*i,color),new Block(80, 20*i,color),new Block(100, 20*i,color),new Block(120, 20*i,color)};
+                Block[] xarray = {new Block(45, 45*i, color),new Block(90, 45*i,color),new Block(135, 45*i,color),new Block(180, 45*i,color),new Block(225, 45*i,color),new Block(270, 45*i,color)};
                 SavedY[i] = xarray;
             }
         }
@@ -39,7 +39,7 @@ public class Physics {
             for(int i = 0; i < 3; i++){
                 for(int y = 0; y < 5; y++){
                     Color color = Color.WHITE;
-                    Block[] temp = {new Block(440, 20*y + (100*i), color),new Block(460, 20*y + (100*i),color),new Block(480, 20*y + (100*i),color),new Block(500, 20*y + (100*i),color),new Block(520, 20*y + (100*i),color),new Block(540, 20*y + (100*i),color)};
+                    Block[] temp = {new Block(875, 45*y + (180*i), color),new Block(920, 45*y + (180*i),color),new Block(965, 45*y + (180*i),color),new Block(1010, 45*y + (180*i),color),new Block(1055, 45*y + (180*i),color),new Block(1100, 45*y + (180*i),color)};
                     Queue[i][y] = temp;
                 }
 
