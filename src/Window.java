@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
+import java.io.IOException;
 
 public class Window extends JFrame implements KeyListener {
 //    private int dotX = 100;
@@ -19,9 +20,14 @@ public class Window extends JFrame implements KeyListener {
     public static int Level = 1;
     public static boolean animation = false;
     private static boolean tracer = false;
+    private static String FilePath = "C:\\Users\\bacon\\IdeaProjects\\Tetris-Remastered\\HighScore.Txt";
+    private static boolean gameover = true;
+
+
+
     public Window() {
         setTitle("Tetris Remastered");
-        setSize(800, 600);
+        setSize(1200, 1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -73,7 +79,12 @@ public static void ChangeCheck(int x){
                 Physics.HardDrop();
                 break;
             case KeyEvent.VK_ESCAPE:
-                Main.Pause();
+                if(gameover){
+                    gameover = false;
+                }
+                else {
+                    Main.Pause();
+                }
                 break;
             case KeyEvent.VK_Z:
                 Physics.SaveBlock();
@@ -113,7 +124,21 @@ public static void ChangeCheck(int x){
 
 
 
+private void GridAlign(Graphics g2){
+    g2.setFont(new Font("Arial", Font.BOLD, 8));
+    g2.setColor(Color.BLACK);
+        for(int i = 0; i < 1200/25; i++){
+            g2.drawLine(i*25, 0, i*25, 1000);
+            g2.drawString(""+ i*25, i*25+3, 50);
+        }
+    for(int i = 0; i < 1000/50; i++){
+        g2.drawLine(0, i*50, 1200, i*50);
+        g2.drawString(""+ i*50, 10, i*50+10);
+    }
 
+
+    g2.drawString("Current Score", 650, 50);
+}
 
     private void GridDraw(){
         for (int y = 0; y < Physics.Yarray.length; y++) {
@@ -150,6 +175,66 @@ public static void ChangeCheck(int x){
             Physics.MoveLeft(Main.LiveBlocks);
 
         }
+    }
+
+    private void endgame(Graphics g2) throws IOException {
+        g2.setColor(Color.BLACK);
+        g2.setFont(new Font("Arial", Font.BOLD, 82));
+        g2.drawString("Game Over", 375, 120);
+        g2.setFont(new Font("Arial", Font.BOLD, 50));
+        g2.drawString("Score", 500, 200);
+        g2.drawString(String.valueOf(Score), 550, 250);
+
+        DrawHighScores(g2);
+    }
+
+    private void DrawContollers(Graphics g2){
+        g2.setColor(Color.BLACK);
+        g2.setFont(new Font("Arial", Font.BOLD, 20));
+        g2.drawString("KeyBoard", 50, 100);
+        g2.drawString("Hard Drop  --- SPACE", 50, 130);
+        g2.drawString("Move Left   --- LEFT ARROW", 50, 160);
+        g2.drawString("Move Right --- RIGHT ARROW", 50, 190);
+        g2.drawString("Quick Drop --- DOWN ARROW", 50, 220);
+        g2.drawString("Rotate        --- UP ARROW", 50, 250);
+        g2.drawString("Save Block --- Z", 50, 280);
+        g2.drawString("Turn On/Off Tracer Blocks --- L", 50, 310);
+
+        g2.drawString("Controller", 50, 400);
+        g2.drawString("Hard Drop  --- X", 50, 430);
+        g2.drawString("Move Left   --- STICK LEFT", 50, 460);
+        g2.drawString("Move Right --- STICK RIGHT", 50, 490);
+        g2.drawString("Quick Drop --- Z", 50, 520);
+        g2.drawString("Rotate        --- Y", 50, 550);
+        g2.drawString("Save Block --- Right Bumper", 50, 580);
+        g2.drawString("Toggle Tracer Blocks --- B", 50, 610);
+
+
+    }
+
+    private static void DrawHighScores(Graphics g2) throws IOException {
+        g2.setColor(Color.BLACK);
+        g2.fillRect(450, 300, 300, 300);
+        g2.setColor(Color.WHITE);
+        g2.fillRect(455, 305, 290, 300);
+        g2.setColor(Color.BLACK);
+        g2.setFont(new Font("Arial", Font.BOLD, 30));
+        g2.drawString("High Scores", 500, 280);
+        g2.setFont(new Font("Arial", Font.BOLD, 20));
+        for(int i = 0; i < 20; i++){
+            if(i % 2 == 0){
+                g2.drawString(i/2 + 1 +".", 460, 325 + i*20);
+                g2.drawString(FileHandler.readSpecificLine(FilePath, i+1), 485, 325 + i*20);
+                g2.drawString(FileHandler.readSpecificLine(FilePath, i+2), 650, 325 + i*20);
+            }
+        }
+
+//        g2.drawString("Name1", 460, 325);
+//        g2.drawString("0", 700, 325);
+//        g2.drawString("Name1223232", 460, 360);
+//        g2.drawString("Tod3", 460, 395);
+//        g2.drawString("BoooPraa4", 460, 425);
+//        g2.drawString("Christapher5", 460, 460);
     }
 
 
@@ -251,15 +336,32 @@ public static void ChangeCheck(int x){
                 try {
                     g2 = (Graphics2D) bs.getDrawGraphics();
                     g2.setColor(Color.white);
-                        g2.fillRect(0, 0, 800, 600);
-                    g2.setColor(Color.BLACK);
-                    g2.setFont(new Font("Arial", Font.BOLD, 60));
-                    g2.drawString("Tetris", 290, 120);
-                        g2.setFont(new Font("Arial", Font.BOLD, 14));
+                    if(!gameover){
+                        g2.fillRect(0, 0, 1200, 1000);
                         g2.setColor(Color.BLACK);
-                        g2.drawString("Current Score", 650, 50);
+                        g2.setFont(new Font("Arial", Font.BOLD, 82));
+                        g2.drawString("Tetris", 500, 120);
+
+                        g2.setFont(new Font("Arial", Font.BOLD, 26));
+                        g2.setColor(Color.BLACK);
+                        g2.drawString("Current Score", 975, 100);
+                        g2.drawString(String.valueOf(Score), 1050, 135);
+                        g2.drawString("High Score", 990, 175);
+                        g2.drawString(String.valueOf(Score), 1050, 200);
+
+                        g2.setFont(new Font("Arial", Font.ITALIC, 42));
+                        g2.drawString("Resume", 530, 200);
+                        DrawHighScores(g2);
+                        GridAlign(g2);
+                        DrawContollers(g2);
+                    }
+                    else{
+                        endgame(g2);
+                    }
 
 
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 } finally {
                     g2.dispose();
                     bs.show();
@@ -291,8 +393,9 @@ public static void ChangeCheck(int x){
     public static void BlockDropUpdater(){
         lastCheck = 0;
         for(int i = 0; i < Main.LiveBlocks.length; i++){
-            if(Main.LiveBlocks[i].ycord() == 1){
+            if(Main.LiveBlocks[i].ycord() == 2){
                 Main.pause = true;
+                gameover = true;
             }
         }
         Main.liveFall = false;
@@ -360,6 +463,7 @@ public static void ChangeCheck(int x){
             }
             else{
                 repaint();
+                Thread.sleep(1000 / 60);
 
             }
 
