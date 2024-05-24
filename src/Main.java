@@ -10,11 +10,18 @@ public class Main {
     public static boolean pause = true;
     public static int tick = 0;
 
+
     public static void main(String[] args) throws InterruptedException {
         Window window = new Window();
         window.main(window);
         addKeyListener(window);
 
+    }
+
+    public static void NewGame(){
+        Window window = new Window();
+        window.main(window);
+        addKeyListener(window);
     }
 
     public int getTick(){

@@ -228,8 +228,6 @@ public static void LineClear(){
         int x = Main.tick;
         int z = x + 25;
         while (x < z) {
-            System.out.println(x);
-            System.out.println(z);
             x = Main.tick;
             if (x % 5 == 0) {
                 for(int i = 0; i < ClearLines.length; i++){
@@ -257,6 +255,7 @@ public static void LineClear(){
                 System.out.println("NEW LINE " + Arrays.toString(Yarray[0]));
                 if(ClearLines[i] != 99){
                     totalLines++;
+                    Window.LineClears++;
                     for(int y = 0; y < ClearLines[i];y++){
                         int r = ClearLines[i] - y;
                         for(int z = 0; z < Yarray[i].length; z++){
@@ -274,7 +273,7 @@ public static void LineClear(){
                     }
 
                 }
-                Window.ChangeScore(100 * totalLines * Window.Level);
+                Window.ChangeScore(100 * totalLines * Window.Level/3);
 
             }
     Window.ChangeAnimation(false);
@@ -468,7 +467,7 @@ public static void LineClear(){
     public static void SpeedDrop(){
         if (Physics.CheckDown(Main.LiveBlocks)) {
             Physics.MoveDown(Main.LiveBlocks);
-            Window.ChangeScore((Window.Level * 2));
+            Window.ChangeScore((Window.Level));
         }
     }
 
@@ -551,7 +550,7 @@ public static void LineClear(){
             }
             Main.LiveBlocks = TempChords;
             Window.BlockDropUpdater();
-            Window.ChangeScore(5 * totalDrop * Window.Level);
+            Window.ChangeScore(5 * totalDrop * Window.Level/3);
         }
     }
 

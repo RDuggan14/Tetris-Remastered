@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-import java.io.File;
 import java.io.IOException;
 
 public class Window extends JFrame implements KeyListener {
@@ -16,12 +15,16 @@ public class Window extends JFrame implements KeyListener {
     private int TickUpdate = 10;
     public static int lastCheck;
     private boolean stopall = false;
-    private static int Score = 0;
+    public static int Score = 0;
     public static int Level = 1;
+    private static int CheckSpeed = 60;
     public static boolean animation = false;
     private static boolean tracer = false;
-    private static String FilePath = "C:\\Users\\bacon\\IdeaProjects\\Tetris-Remastered\\HighScore.Txt";
-    private static boolean gameover = true;
+    public static String FilePath = "C:\\Users\\ryand\\IdeaProjects\\Tetris Remastered\\HighScore.Txt";
+    private static boolean gameover = false;
+    public static int LineClears = 0;
+    private static boolean LiveGame = false;
+    private static boolean popup = false;
 
 
 
@@ -185,7 +188,7 @@ private void GridAlign(Graphics g2){
         g2.drawString("Score", 500, 200);
         g2.drawString(String.valueOf(Score), 550, 250);
 
-        DrawHighScores(g2);
+      //  DrawHighScores(g2);
     }
 
     private void DrawContollers(Graphics g2){
@@ -201,38 +204,43 @@ private void GridAlign(Graphics g2){
         g2.drawString("Turn On/Off Tracer Blocks --- L", 50, 310);
 
         g2.drawString("Controller", 50, 400);
-        g2.drawString("Hard Drop  --- X", 50, 430);
+        g2.drawString("Hard Drop  --- A", 50, 430);
         g2.drawString("Move Left   --- STICK LEFT", 50, 460);
         g2.drawString("Move Right --- STICK RIGHT", 50, 490);
         g2.drawString("Quick Drop --- Z", 50, 520);
-        g2.drawString("Rotate        --- Y", 50, 550);
+        g2.drawString("Rotate        --- X", 50, 550);
         g2.drawString("Save Block --- Right Bumper", 50, 580);
-        g2.drawString("Toggle Tracer Blocks --- B", 50, 610);
+        g2.drawString("Toggle Tracer Blocks --- Y", 50, 610);
 
 
     }
 
     private static void DrawHighScores(Graphics g2) throws IOException {
         g2.setColor(Color.BLACK);
-        g2.fillRect(450, 300, 300, 300);
-        g2.setColor(Color.WHITE);
-        g2.fillRect(455, 305, 290, 300);
-        g2.setColor(Color.BLACK);
         g2.setFont(new Font("Arial", Font.BOLD, 30));
-        g2.drawString("High Scores", 500, 280);
+     //   g2.drawString("High Scores", 500, 450);
         g2.setFont(new Font("Arial", Font.BOLD, 20));
         for(int i = 0; i < 20; i++){
             if(i % 2 == 0){
-                g2.drawString(i/2 + 1 +".", 460, 325 + i*20);
-                g2.drawString(FileHandler.readSpecificLine(FilePath, i+1), 485, 325 + i*20);
-                g2.drawString(FileHandler.readSpecificLine(FilePath, i+2), 650, 325 + i*20);
+                g2.drawString(i/2 + 1 +".", 460, 495 + i*20);
+                g2.drawString(FileHandler.readSpecificLine(FilePath, i+1), 485, 495 + i*20);
+                g2.drawString(FileHandler.readSpecificLine(FilePath, i+2), 650, 495 + i*20);
             }
         }
     }
 
 
-    private void DrawLinesAndScore(Graphics g2){
-
+    private void DrawLinesAndScore(Graphics g2) throws IOException {
+        g2.setColor(Color.WHITE);
+        g2.fillRect(50, 650, 250, 200);
+        g2.setFont(new Font("Arial", Font.BOLD, 26));
+        g2.setColor(Color.BLACK);
+            g2.drawString("Current Score", 100, 700);
+        g2.drawString(String.valueOf(Score), 125, 730);
+        //   g2.drawString("High Score", 100, 780);
+       // g2.drawString(FileHandler.readSpecificLine(FilePath, 2), 125, 810);
+        g2.drawString("Line Clears", 100, 780);
+        g2.drawString(String.valueOf(LineClears), 125, 810);
     }
 
 
@@ -293,30 +301,22 @@ private void GridAlign(Graphics g2){
                             g2.fillRect(Physics.Xpixels[(Main.LiveBlocks[i].xcord())] + 1, Physics.Ypixels[Main.LiveBlocks[i].ycord()] + 1, 44, 44);
                         }
 
-
-
-                        File file = new File("HighScore.Txt");
-                        g2.setColor(Color.white);
-                        g2.fillRect(620, 10, 150, 100);
-                        g2.setFont(new Font("Arial", Font.BOLD, 14));
-                        g2.setColor(Color.BLACK);
-                        g2.drawString("Current Score", 650, 50);
-                        g2.drawString(String.valueOf(Score), 670, 70);
-                        //g2.drawString("HighScore", 690, 50);
-//                    FileReader fileCode = (new FileReader(file));
-//                    String high = fileCode.toString();
-//                    g2.drawString(high,690, 80);
+                        try {
+                            DrawLinesAndScore(g2);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     else{
-                        super.paint(g2);
-                        g2.setColor(Color.lightGray);
-                        g2.fillRect(0, 0, 400, 800);
-                        g2.setColor(Color.white);
-                        g2.fillRect(620, 10, 150, 100);
-                        g2.setFont(new Font("Arial", Font.BOLD, 14));
-                        g2.setColor(Color.BLACK);
-                        g2.drawString("Current Score", 650, 50);
-                        g2.drawString(String.valueOf(Score), 670, 70);
+
+//                        g2.setColor(Color.lightGray);
+//                        g2.fillRect(0, 0, 400, 800);
+//                        g2.setColor(Color.white);
+//                        g2.fillRect(620, 10, 150, 100);
+//                        g2.setFont(new Font("Arial", Font.BOLD, 14));
+//                        g2.setColor(Color.BLACK);
+//                        g2.drawString("Current Score", 650, 50);
+//                        g2.drawString(String.valueOf(Score), 670, 70);
 
                     }
                 } finally {
@@ -342,16 +342,14 @@ private void GridAlign(Graphics g2){
 
                         g2.setFont(new Font("Arial", Font.BOLD, 26));
                         g2.setColor(Color.BLACK);
-                        g2.drawString("Current Score", 975, 100);
-                        g2.drawString(String.valueOf(Score), 1050, 135);
-                        g2.drawString("High Score", 990, 175);
-                        g2.drawString(String.valueOf(Score), 1050, 200);
+
 
                         g2.setFont(new Font("Arial", Font.ITALIC, 42));
                         g2.drawString("Resume", 530, 200);
-                        DrawHighScores(g2);
-                        GridAlign(g2);
+                      //  DrawHighScores(g2);
+                       // GridAlign(g2);
                         DrawContollers(g2);
+                        DrawLinesAndScore(g2);
                     }
                     else{
                         endgame(g2);
@@ -387,11 +385,19 @@ private void GridAlign(Graphics g2){
             }
     }
 
+    private void StartGame(){
+        try {
+            GameStart();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public static void BlockDropUpdater(){
         lastCheck = 0;
         for(int i = 0; i < Main.LiveBlocks.length; i++){
-            if(Main.LiveBlocks[i].ycord() == 1){
+            if(Main.LiveBlocks[i].ycord() == 2){
                 Main.pause = true;
                 gameover = true;
             }
@@ -415,6 +421,8 @@ private void GridAlign(Graphics g2){
         g = gt;
         GridMaker();
         GridDraw();
+        LiveGame = true;
+
 
         while (!stopall) {
 
@@ -422,6 +430,7 @@ private void GridAlign(Graphics g2){
 
             if (!Main.pause) {
                 Main.tick++;
+                System.out.println("TICK " + Main.tick);
                 Thread.sleep(1000 / 60);
 
 
@@ -439,7 +448,7 @@ private void GridAlign(Graphics g2){
                     }
 
 
-                    if (Main.tick % 40 == 0) {
+                    if (Main.tick % CheckSpeed == 0) {
                         if (!animation) {
 
                             if (Physics.CheckDown(Main.LiveBlocks)) {
@@ -458,6 +467,10 @@ private void GridAlign(Graphics g2){
                         }
                     }
 
+                    if(Main.tick % 750 == 0){
+                        Level++;
+                        CheckSpeed = CheckSpeed - 5;
+                    }
             }
             else{
                 repaint();
